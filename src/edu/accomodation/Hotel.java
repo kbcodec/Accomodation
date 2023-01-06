@@ -1,4 +1,6 @@
-import DBHandling.DBConnection;
+package edu.accomodation;
+
+import edu.accomodation.DBHandling.DBConnection;
 
 import java.sql.*;
 
@@ -103,7 +105,7 @@ public class Hotel {
 
     @Override
     public String toString() {
-        return "Hotel{" +
+        return "edu.accomodation.Hotel{" +
                 "name='" + name + '\'' +
                 ", id_hotel=" + id_hotel +
                 ", latitude=" + latitude +

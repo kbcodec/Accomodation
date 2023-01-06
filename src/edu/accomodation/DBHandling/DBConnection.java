@@ -1,4 +1,4 @@
-package DBHandling;
+package edu.accomodation.DBHandling;
 
 import java.sql.*;
 

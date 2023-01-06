@@ -1,7 +1,10 @@
+package edu.accomodation.Waypoints;
+
+import edu.accomodation.Hotel;
 import org.jxmapviewer.viewer.DefaultWaypoint;
 import org.jxmapviewer.viewer.GeoPosition;
 
-import javax.naming.Name;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

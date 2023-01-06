@@ -1,7 +1,7 @@
+package edu.accomodation.Waypoints;
+
 import org.jxmapviewer.JXMapViewer;
-import org.jxmapviewer.viewer.Waypoint;
 import org.jxmapviewer.viewer.WaypointPainter;
-import org.jxmapviewer.viewer.WaypointRenderer;
 
 import javax.swing.*;
 import java.awt.*;

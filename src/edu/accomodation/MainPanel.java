@@ -1,4 +1,9 @@
-import UserHandling.User;
+package edu.accomodation;
+
+import edu.accomodation.Hotel;
+import edu.accomodation.UserHandling.User;
+import edu.accomodation.Waypoints.MyWaypoint;
+import edu.accomodation.Waypoints.WaypointRender;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;

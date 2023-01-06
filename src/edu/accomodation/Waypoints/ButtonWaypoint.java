@@ -1,3 +1,5 @@
+package edu.accomodation.Waypoints;
+
 import javax.swing.*;
 import java.awt.*;
 

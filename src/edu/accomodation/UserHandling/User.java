@@ -1,9 +1,7 @@
-package UserHandling;
+package edu.accomodation.UserHandling;
 
-import DBHandling.DBConnection;
+import edu.accomodation.DBHandling.DBConnection;
 
-import javax.xml.transform.Result;
-import java.net.ConnectException;
 import java.sql.*;
 
 public class User {
