@@ -460,21 +460,6 @@
         </properties>
         <border type="none"/>
         <children>
-          <component id="44157" class="javax.swing.JButton" binding="MPmenuMapButton">
-            <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <minimum-size width="-1" height="100"/>
-                <preferred-size width="-1" height="100"/>
-                <maximum-size width="-1" height="100"/>
-              </grid>
-            </constraints>
-            <properties>
-              <background color="-14740939"/>
-              <font name="Inter" size="22"/>
-              <foreground color="-270988"/>
-              <text value="Maps"/>
-            </properties>
-          </component>
           <vspacer id="83abf">
             <constraints>
               <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
@@ -493,6 +478,22 @@
               <font name="Inter" size="22"/>
               <foreground color="-270988"/>
               <text value="Zaloguj się"/>
+            </properties>
+          </component>
+          <component id="44157" class="javax.swing.JButton" binding="MPmenuMapButton">
+            <constraints>
+              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+                <minimum-size width="-1" height="100"/>
+                <preferred-size width="-1" height="100"/>
+                <maximum-size width="-1" height="100"/>
+              </grid>
+            </constraints>
+            <properties>
+              <background color="-14740939"/>
+              <enabled value="true"/>
+              <font name="Inter" size="22"/>
+              <foreground color="-270988"/>
+              <text value="Maps"/>
             </properties>
           </component>
         </children>

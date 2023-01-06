@@ -7,12 +7,7 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws SQLException, IOException {
-
-
-
-
-
+    public static void main(String[] args) throws IOException {
 
         //formatka
         new MainPanel("Accomodation").setVisible(true);
