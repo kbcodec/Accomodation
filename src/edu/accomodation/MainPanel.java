@@ -1,6 +1,7 @@
 package edu.accomodation;
 
 import edu.accomodation.UserHandling.User;
+import edu.accomodation.UserHandling.UserController;
 import edu.accomodation.Waypoints.MyWaypoint;
 import edu.accomodation.Waypoints.WaypointRender;
 import org.jxmapviewer.JXMapViewer;
@@ -49,6 +50,7 @@ public class MainPanel extends JFrame {
     //REGISTER PANEL COMPONENTS
     private JButton RPregisterButton;
     private JTextField RPfirstNameTf;
+    private JTextField RPemailTf;
     private JTextField RPlastNameTf;
     private JTextField RPloginTf;
     private JPasswordField RPconfirmPasswordPf;
@@ -62,7 +64,10 @@ public class MainPanel extends JFrame {
     private JButton HPprevBtn;
     private JButton HPnextBtn;
 
+
     private JXMapViewer jxMapViewerSaved = null;
+
+    private User user;
 
 
     public MainPanel()  {
@@ -76,53 +81,56 @@ public class MainPanel extends JFrame {
 
     private void MPmapButtonClick() throws SQLException {
 
-        contextPanels.setSelectedIndex(1);
-        if(jxMapViewerSaved == null) {
-            createMapPanel();
-        }
+        createMapPanel();
 
     };
 
     private void createMapPanel() throws SQLException {
-        TileFactoryInfo info = new OSMTileFactoryInfo();
-        DefaultTileFactory tileFactory = new DefaultTileFactory(info);
-        JXMapViewer jxMapViewer = new JXMapViewer();
-        jxMapViewer.setTileFactory(tileFactory);
-        Border blackLine = BorderFactory.createLineBorder(Color.black);
-        jxMapViewer.setBorder(blackLine);
+        if(jxMapViewerSaved == null) {
+            TileFactoryInfo info = new OSMTileFactoryInfo();
+            DefaultTileFactory tileFactory = new DefaultTileFactory(info);
+            JXMapViewer jxMapViewer = new JXMapViewer();
+            jxMapViewer.setTileFactory(tileFactory);
+            Border blackLine = BorderFactory.createLineBorder(Color.black);
+            jxMapViewer.setBorder(blackLine);
 
-        GeoPosition geo = new GeoPosition(52.069284, 19.480322);
-        jxMapViewer.setAddressLocation(geo);
-        jxMapViewer.setZoom(13);
+            GeoPosition geo = new GeoPosition(52.069284, 19.480322);
+            jxMapViewer.setAddressLocation(geo);
+            jxMapViewer.setZoom(13);
 
-        MouseInputListener mm = new PanMouseInputListener(jxMapViewer);
-        jxMapViewer.addMouseListener(mm);
-        jxMapViewer.addMouseMotionListener(mm);
-        jxMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(jxMapViewer));
+            MouseInputListener mm = new PanMouseInputListener(jxMapViewer);
+            jxMapViewer.addMouseListener(mm);
+            jxMapViewer.addMouseMotionListener(mm);
+            jxMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(jxMapViewer));
 
-        List<Hotel> hotelLists = new HotelDatabasePersister().listHotels();
-        List<JLabel> hotelLabels = new ArrayList<>();
-        hotelLabels.add(HPhotelName);
-        hotelLabels.add(HPhotelWebPage);
-        hotelLabels.add(HPhotelCategory);
-        hotelLabels.add(HPhotelDesc);
-        hotelLabels.add(HPhotelImg);
-        Set<MyWaypoint> waypoints = new HashSet<>();
+            List<Hotel> hotelLists = new HotelDatabasePersister().listHotels();
+            List<JLabel> hotelLabels = new ArrayList<>();
+            hotelLabels.add(HPhotelName);
+            hotelLabels.add(HPhotelWebPage);
+            hotelLabels.add(HPhotelCategory);
+            hotelLabels.add(HPhotelDesc);
+            hotelLabels.add(HPhotelImg);
+            Set<MyWaypoint> waypoints = new HashSet<>();
 
-        for (Hotel hotel:hotelLists
-        ) {
-            MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn);
-            waypoints.add(dw);
+            for (Hotel hotel:hotelLists
+            ) {
+                MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn);
+                waypoints.add(dw);
+            }
+
+            initWaypoint(waypoints, jxMapViewer);
+
+
+
+            jxMapViewerSaved = jxMapViewer;
+
+            mapPanel.add(jxMapViewer);
+            mapPanel.setPreferredSize(new Dimension(100, 100));
+            contextPanels.setSelectedIndex(1);
+        } else {
+            contextPanels.setSelectedIndex(1);
         }
 
-        initWaypoint(waypoints, jxMapViewer);
-
-
-
-        jxMapViewerSaved = jxMapViewer;
-
-        mapPanel.add(jxMapViewer);
-        mapPanel.setPreferredSize(new Dimension(100, 100));
 
 
     }
@@ -142,39 +150,48 @@ public class MainPanel extends JFrame {
         String loginFromTf = LPloginTf.getText();
         char[] passwordFromPf = LPpasswordPf.getPassword();
 
-        User user = new User(loginFromTf, passwordFromPf);
         try {
-            if(user.isUserExist()) {
-                JOptionPane.showMessageDialog(loginPanel,
-                        "Udało się zalogować.",
-                        "Sukces",
-                        JOptionPane.INFORMATION_MESSAGE);
-                user.setName(user.getLogin());
-                MPmenuLoginButton.setEnabled(false);
-                MPmenuLoginButton.setText("Witaj " + user.getName());
-                contextPanels.setSelectedIndex(1);
-            } else {
-                JOptionPane.showMessageDialog(loginPanel,
-                        "Użytkownik o takim loginie nie istnieje.\n\n Zarejestruj się lub spróbuj ponownie",
-                        "Spróbuj ponownie.",
-                        JOptionPane.INFORMATION_MESSAGE);
-            }
+            user = new UserController().readUser(loginFromTf, String.valueOf(passwordFromPf));
+            JOptionPane.showMessageDialog(loginPanel, "Logowanie powiodło się", "Dostęp przyznany", JOptionPane.INFORMATION_MESSAGE);
+            MPmenuLoginButton.setEnabled(false);
+            MPmenuLoginButton.setText("Witaj " + user.getFirstName());
+            createMapPanel();
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(loginPanel,
-                    e.getMessage(),
-                    "Błąd",
-                    JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(loginPanel, "Nieprawidłowe dane", "Spróbuj ponownie", JOptionPane.ERROR_MESSAGE);
+
         }
+
     }
     private void LPregisterButtonClick() {contextPanels.setSelectedIndex(2);}
 
     //REGISTER PANEL BUTTONS CLICK HANDLERS
-    private void createUserButtonClick() {
-        JOptionPane.showMessageDialog(registerPanel,
-                "Udał się utworzyć użytkownika, teraz możesz się zalgować do aplikacji.",
-                "Powodzenie",
-                JOptionPane.INFORMATION_MESSAGE);
-        contextPanels.setSelectedIndex(0);
+    private void createUserButtonClick() throws SQLException {
+
+        String firstNameFromTf = RPfirstNameTf.getText();
+        String lastNameFromTf = RPlastNameTf.getText();
+        String emailFromTf = RPemailTf.getText();
+        String loginFromTf = RPloginTf.getText();
+        char[] passwordFromTf = RPpasswordPf.getPassword();
+        char[] passwordConfirmed = RPconfirmPasswordPf.getPassword();
+
+        try {
+            User checkingUser = new UserController().checkUser(loginFromTf, emailFromTf);
+            JOptionPane.showMessageDialog(registerPanel,
+                    "Użytkownik o podanym email/loginie już istnieje, spróbój ponownie.",
+                    "Niepowodzenie",
+                    JOptionPane.ERROR_MESSAGE);
+            checkingUser = null;
+        }
+        catch (SQLException e) {
+            new UserController().addUser(loginFromTf, String.valueOf(passwordFromTf), emailFromTf, firstNameFromTf, lastNameFromTf);
+            JOptionPane.showMessageDialog(registerPanel,
+                    "Udał się utworzyć użytkownika, teraz możesz się zalgować do aplikacji.",
+                    "Powodzenie",
+                    JOptionPane.INFORMATION_MESSAGE);
+            contextPanels.setSelectedIndex(0);
+        }
+
+
     }
 
     public MainPanel(String title) throws HeadlessException, IOException {
@@ -235,7 +252,11 @@ public class MainPanel extends JFrame {
         RPregisterButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                createUserButtonClick();
+                try {
+                    createUserButtonClick();
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 

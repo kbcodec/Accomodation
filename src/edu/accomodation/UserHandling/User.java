@@ -1,93 +1,51 @@
 package edu.accomodation.UserHandling;
 
-import edu.accomodation.DBHandling.DBConnection;
-
-import java.sql.*;
+import javax.security.auth.kerberos.EncryptionKey;
 
 public class User {
-    public User(String login, char[] password) {
-        this.login = login;
-        this.password = password;
-    }
-
-    public User(String login, String name, char[] password) {
-        this.login = login;
-        this.password = password;
-    }
-
-
     private String login;
-
-    private String name;
-    private char[] password;
+    private String password;
+    private String email;
+    private String firstName;
+    private String lastName;
 
     public String getLogin() {
         return login;
     }
 
-    public String getName() {
-        return name;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
-    public char[] getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setLogin(String login) throws SQLException {
-        Statement stmt = createOwnStatement();
-        ResultSet rs = stmt.executeQuery("SELECT login from users where login = " + login);
-        this.login = rs.getString("login");
-    }
-
-    public void setName(String login) throws SQLException {
-        DBConnection dbConn = new DBConnection();
-        Connection conn = dbConn.getConnection();
-
-        String insertString = "SELECT firstName from users where login = ?";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(insertString)) {
-            pstmt.setString(1, login);
-            ResultSet rs = pstmt.executeQuery();
-            while(rs.next()){
-                this.name = rs.getString(1);
-            }
-        }
-
-    }
-
-    public void setPassword(char[] password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public boolean isUserExist() throws SQLException {
-        Statement stmt = createOwnStatement();
-
-        ResultSet rs = stmt.executeQuery("SELECT login FROM USERS");
-
-        while (rs.next()) {
-            if (login.equals(rs.getString("login"))) {
-                return true;
-            }
-        }
-        return false;
+    public String getEmail() {
+        return email;
     }
 
-    public void addUserToDb() throws SQLException {
-        DBConnection dbConn = new DBConnection();
-        Connection conn = dbConn.getConnection();
-
-        String insertString = "INSERT INTO USERS (login, email, firstName, lastName, password) VALUES (?, ?, ?, ?, ?)";
-
-        try (PreparedStatement pstmt = conn.prepareStatement(insertString)) {
-            pstmt.setString(1, login);
-            pstmt.executeUpdate();
-        }
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    private Statement createOwnStatement() throws SQLException {
-        DBConnection dbConn = new DBConnection();
-        Connection conn = dbConn.getConnection();
-        return conn.createStatement();
+    public String getFirstName() {
+        return firstName;
     }
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }

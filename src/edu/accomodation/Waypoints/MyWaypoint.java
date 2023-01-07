@@ -81,11 +81,11 @@ public class MyWaypoint extends DefaultWaypoint {
                 Image dimg3 = null;
                 List<Image> images = new ArrayList<>();
 
-                //ZMIENIC URL NA hotel.getPicture1 itd.
+
                 try {
-                    URL url1 = new URL("https://drive.google.com/uc?id=1cSBUuq-kdyEWDoawQAVJN27bPouhGKI4");
-                    URL url2 = new URL("https://drive.google.com/uc?id=1EaXVsqX4-VyaTw1xf0j9Eu9TxiDjuN5I");
-                    URL url3 = new URL("https://drive.google.com/uc?id=19wPx2rm22OtYGeDBdpMHnnA2Bcc3knne");
+                    URL url1 = new URL(hotel.getPicture1());
+                    URL url2 = new URL(hotel.getPicture2());
+                    URL url3 = new URL(hotel.getPicture3());
                     URLConnection uc1 = url1.openConnection();
                     uc1.addRequestProperty("User-Agent",
                             "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)");
