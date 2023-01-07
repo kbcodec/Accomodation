@@ -1,6 +1,5 @@
 package edu.accomodation;
 
-import edu.accomodation.Hotel;
 import edu.accomodation.UserHandling.User;
 import edu.accomodation.Waypoints.MyWaypoint;
 import edu.accomodation.Waypoints.WaypointRender;
@@ -59,8 +58,11 @@ public class MainPanel extends JFrame {
     private JLabel HPhotelDesc;
     private JLabel HPhotelCategory;
     private JLabel HPhotelWebPage;
+    private JLabel HPhotelImg;
+    private JButton HPprevBtn;
+    private JButton HPnextBtn;
 
-
+    private JXMapViewer jxMapViewerSaved = null;
 
 
     public MainPanel()  {
@@ -73,8 +75,12 @@ public class MainPanel extends JFrame {
     private void MPloginButtonClick() {contextPanels.setSelectedIndex(0);};
 
     private void MPmapButtonClick() throws SQLException {
+
         contextPanels.setSelectedIndex(1);
-        createMapPanel();
+        if(jxMapViewerSaved == null) {
+            createMapPanel();
+        }
+
     };
 
     private void createMapPanel() throws SQLException {
@@ -95,22 +101,25 @@ public class MainPanel extends JFrame {
         jxMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(jxMapViewer));
 
         List<Hotel> hotelLists = new HotelDatabasePersister().listHotels();
-        Set<JLabel> hotelLabels = new HashSet<>();
+        List<JLabel> hotelLabels = new ArrayList<>();
         hotelLabels.add(HPhotelName);
         hotelLabels.add(HPhotelWebPage);
         hotelLabels.add(HPhotelCategory);
         hotelLabels.add(HPhotelDesc);
+        hotelLabels.add(HPhotelImg);
         Set<MyWaypoint> waypoints = new HashSet<>();
 
         for (Hotel hotel:hotelLists
         ) {
-            MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels);
+            MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn);
             waypoints.add(dw);
         }
 
         initWaypoint(waypoints, jxMapViewer);
 
 
+
+        jxMapViewerSaved = jxMapViewer;
 
         mapPanel.add(jxMapViewer);
         mapPanel.setPreferredSize(new Dimension(100, 100));
