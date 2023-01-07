@@ -94,11 +94,7 @@ public class MainPanel extends JFrame {
         jxMapViewer.addMouseMotionListener(mm);
         jxMapViewer.addMouseWheelListener(new ZoomMouseWheelListenerCursor(jxMapViewer));
 
-        List<Hotel> hotelLists = new ArrayList<>();
-        for (int id = 10001; id <= 10049; id++) {
-            hotelLists.add(new Hotel(id));
-        }
-
+        List<Hotel> hotelLists = new HotelDatabasePersister().listHotels();
         Set<JLabel> hotelLabels = new HashSet<>();
         hotelLabels.add(HPhotelName);
         hotelLabels.add(HPhotelWebPage);

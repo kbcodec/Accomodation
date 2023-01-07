@@ -53,7 +53,9 @@ public class MyWaypoint extends DefaultWaypoint {
                 JLabel hotelDesc = (JLabel)myArr[3];
 
                 hotelName.setText(hotel.getName());
+                hotelWeb.setText(hotel.getWeb());
                 hotelCat.setText(hotel.getCategory());
+                hotelDesc.setText(hotel.getDescription());
             }
         });
     }
