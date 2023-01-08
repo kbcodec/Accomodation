@@ -9,6 +9,7 @@ import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
 import org.jxmapviewer.input.ZoomMouseWheelListenerCursor;
 import org.jxmapviewer.viewer.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,6 +24,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainPanel extends JFrame {
@@ -151,14 +154,19 @@ public class MainPanel extends JFrame {
         char[] passwordFromPf = LPpasswordPf.getPassword();
 
         try {
-            user = new UserController().readUser(loginFromTf, String.valueOf(passwordFromPf));
-            JOptionPane.showMessageDialog(loginPanel, "Logowanie powiodło się", "Dostęp przyznany", JOptionPane.INFORMATION_MESSAGE);
-            MPmenuLoginButton.setEnabled(false);
-            MPmenuLoginButton.setText("Witaj " + user.getFirstName());
-            createMapPanel();
+            user = new UserController().readUser(loginFromTf);
+            if(BCrypt.checkpw(String.valueOf(passwordFromPf), user.getPassword()))
+            {
+                JOptionPane.showMessageDialog(loginPanel, "Logowanie powiodło się", "Dostęp przyznany", JOptionPane.INFORMATION_MESSAGE);
+                MPmenuLoginButton.setEnabled(false);
+                MPmenuLoginButton.setText("Witaj " + user.getFirstName());
+                createMapPanel();
+            } else {
+                JOptionPane.showMessageDialog(loginPanel, "Nieprawidłowe dane", "Spróbuj ponownie", JOptionPane.ERROR_MESSAGE);
+            }
+
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(loginPanel, "Nieprawidłowe dane", "Spróbuj ponownie", JOptionPane.ERROR_MESSAGE);
-
         }
 
     }
@@ -174,23 +182,27 @@ public class MainPanel extends JFrame {
         char[] passwordFromTf = RPpasswordPf.getPassword();
         char[] passwordConfirmed = RPconfirmPasswordPf.getPassword();
 
-        try {
-            User checkingUser = new UserController().checkUser(loginFromTf, emailFromTf);
-            JOptionPane.showMessageDialog(registerPanel,
-                    "Użytkownik o podanym email/loginie już istnieje, spróbój ponownie.",
-                    "Niepowodzenie",
-                    JOptionPane.ERROR_MESSAGE);
-            checkingUser = null;
-        }
-        catch (SQLException e) {
-            new UserController().addUser(loginFromTf, String.valueOf(passwordFromTf), emailFromTf, firstNameFromTf, lastNameFromTf);
-            JOptionPane.showMessageDialog(registerPanel,
-                    "Udał się utworzyć użytkownika, teraz możesz się zalgować do aplikacji.",
-                    "Powodzenie",
-                    JOptionPane.INFORMATION_MESSAGE);
-            contextPanels.setSelectedIndex(0);
-        }
 
+        //TODO zrobic walidacje pol w oddzielnych funkcjach
+
+        if (isUservalid(firstNameFromTf, lastNameFromTf, loginFromTf, String.valueOf(passwordFromTf), String.valueOf(passwordConfirmed), emailFromTf)) {
+            try {
+                User checkingUser = new UserController().checkUser(loginFromTf, emailFromTf);
+                JOptionPane.showMessageDialog(registerPanel,
+                        "Użytkownik o podanym email/loginie już istnieje, spróbuj ponownie.",
+                        "Niepowodzenie",
+                        JOptionPane.ERROR_MESSAGE);
+                checkingUser = null;
+            }
+            catch (SQLException e) {
+                new UserController().addUser(loginFromTf, String.valueOf(passwordFromTf), emailFromTf, firstNameFromTf, lastNameFromTf);
+                JOptionPane.showMessageDialog(registerPanel,
+                        "Udał się utworzyć użytkownika, teraz możesz się zalgować do aplikacji.",
+                        "Powodzenie",
+                        JOptionPane.INFORMATION_MESSAGE);
+                contextPanels.setSelectedIndex(0);
+            }
+        };
 
     }
 
@@ -262,6 +274,64 @@ public class MainPanel extends JFrame {
 
 
 
+    }
+
+    private boolean isUservalid(String firstName, String lastName, String login, String password, String confirmPassword, String email) {
+        if(isFieldLongEnough(firstName, lastName, login)) {
+            if(isEmailValid(email)) {
+                if(isPasswordValid(password)) {
+                    if(arePasswordMatches(password, confirmPassword)) {
+                        return true;
+                    } else {
+                        JOptionPane.showMessageDialog(registerPanel,
+                                "Podane hasła nie są takie same, spróbuj ponownie.",
+                                "Niepowodzenie",
+                                JOptionPane.ERROR_MESSAGE);
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(registerPanel,
+                            "Hasło ma nieprawidłowy format (<8-20> znaków\n-jedna wielka litera\n-jeden znak specjalny\n-jedna cyfra\nspróbuj ponownie.",
+                            "Niepowodzenie",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(registerPanel,
+                        "Adres email ma nieprawidłowy format, spróbuj ponownie.",
+                        "Niepowodzenie",
+                        JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(registerPanel,
+                    "Długość każdego pola musi wnosić conajmniej 5 znaków, spróbuj ponownie.",
+                    "Niepowodzenie",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        return false;
+    }
+
+    private boolean isEmailValid (String email) {
+        String regex = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+
+        return matcher.matches();
+    }
+
+    private boolean arePasswordMatches(String password, String confirmPassword) {
+        return Objects.equals(password, confirmPassword);
+    }
+
+    private boolean isPasswordValid(String password) {
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+        Pattern  pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+
+        return matcher.matches();
+    }
+
+    private boolean isFieldLongEnough(String firstName, String lastName, String login) {
+        return firstName.length() >= 5 && lastName.length() >= 5 && login.length() >= 5;
     }
 
 }

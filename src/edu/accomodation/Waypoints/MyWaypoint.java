@@ -18,6 +18,8 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class MyWaypoint extends DefaultWaypoint {
     private Hotel hotel;
@@ -82,6 +84,8 @@ public class MyWaypoint extends DefaultWaypoint {
                 List<Image> images = new ArrayList<>();
 
 
+                //TODO zrobic kalendarz i liste pokoi dla kazdego z hoteli
+
                 try {
                     URL url1 = new URL(hotel.getPicture1());
                     URL url2 = new URL(hotel.getPicture2());
@@ -141,4 +145,8 @@ public class MyWaypoint extends DefaultWaypoint {
             }
         });
     }
+
+
+
+
 }
