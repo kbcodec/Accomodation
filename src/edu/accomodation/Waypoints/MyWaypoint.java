@@ -1,6 +1,8 @@
 package edu.accomodation.Waypoints;
 
 import edu.accomodation.Hotel;
+import edu.accomodation.Room;
+import edu.accomodation.RoomDatabasePersister;
 import org.jxmapviewer.viewer.DefaultWaypoint;
 import org.jxmapviewer.viewer.GeoPosition;
 
@@ -15,11 +17,9 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MyWaypoint extends DefaultWaypoint {
     private Hotel hotel;
@@ -28,6 +28,7 @@ public class MyWaypoint extends DefaultWaypoint {
     private List<JLabel> hotelLabels;
     private JButton nextBtn;
     private JButton prevBtn;
+    private JList<Room> roomsList;
 
     public Hotel getHotel() {
         return hotel;
@@ -47,13 +48,14 @@ public class MyWaypoint extends DefaultWaypoint {
 
     int actualIter = 0;
 
-    public MyWaypoint(GeoPosition coord, Hotel hotel, JTabbedPane contextPanel, List<JLabel> hotelLabels, JButton nextBtn, JButton prevBtn) {
+    public MyWaypoint(GeoPosition coord, Hotel hotel, JTabbedPane contextPanel, List<JLabel> hotelLabels, JButton nextBtn, JButton prevBtn, JList<Room> rooms) {
         super(coord);
         this.hotel = hotel;
         this.contextPanel = contextPanel;
         this.hotelLabels = hotelLabels;
         this.prevBtn = prevBtn;
         this.nextBtn = nextBtn;
+        this.roomsList = rooms;
         initButton();
     }
 
@@ -142,6 +144,22 @@ public class MyWaypoint extends DefaultWaypoint {
                         }
                     }
                 });
+
+
+                DefaultListModel<Room> model = new DefaultListModel<>();
+                List<Room> rooms = new ArrayList<>();
+                roomsList.setModel(model);
+                try {
+                    rooms = new RoomDatabasePersister().listRoomsByHotelId(hotel.getId_hotel());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+
+                for (Room r :
+                        rooms) {
+                    model.addElement(r);
+                }
+
             }
         });
     }
