@@ -58,9 +58,9 @@ public class Room {
 
     @Override
     public String toString() {
-        String typeFormatting = String.format("%50s", type);
+        String typeFormatting = String.format("%30s", type);
         String roomNumberFormatting = String.format("%10d", room_number);
-        String occupancyFormatting = String.format("%50d", max_occupancy);
+        String occupancyFormatting = String.format("%10d", max_occupancy);
         return roomNumberFormatting + typeFormatting + occupancyFormatting;
     }
 }

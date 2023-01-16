@@ -1,5 +1,7 @@
 package edu.accomodation.Waypoints;
 
+import com.mindfusion.scheduling.Calendar;
+import com.mindfusion.scheduling.ThemeType;
 import edu.accomodation.Hotel;
 import edu.accomodation.Room;
 import edu.accomodation.RoomDatabasePersister;
@@ -29,6 +31,8 @@ public class MyWaypoint extends DefaultWaypoint {
     private JButton nextBtn;
     private JButton prevBtn;
     private JList<Room> roomsList;
+    private JPanel calendarPanel;
+    private Calendar calendar;
 
     public Hotel getHotel() {
         return hotel;
@@ -48,7 +52,7 @@ public class MyWaypoint extends DefaultWaypoint {
 
     int actualIter = 0;
 
-    public MyWaypoint(GeoPosition coord, Hotel hotel, JTabbedPane contextPanel, List<JLabel> hotelLabels, JButton nextBtn, JButton prevBtn, JList<Room> rooms) {
+    public MyWaypoint(GeoPosition coord, Hotel hotel, JTabbedPane contextPanel, List<JLabel> hotelLabels, JButton nextBtn, JButton prevBtn, JList<Room> rooms, JPanel calendarPanel) {
         super(coord);
         this.hotel = hotel;
         this.contextPanel = contextPanel;
@@ -56,6 +60,7 @@ public class MyWaypoint extends DefaultWaypoint {
         this.prevBtn = prevBtn;
         this.nextBtn = nextBtn;
         this.roomsList = rooms;
+        this.calendarPanel = calendarPanel;
         initButton();
     }
 
@@ -159,6 +164,18 @@ public class MyWaypoint extends DefaultWaypoint {
                         rooms) {
                     model.addElement(r);
                 }
+
+                //KALENDARZ
+
+
+
+                calendar = new Calendar();
+                calendar.setTheme(ThemeType.Light);
+
+                calendarPanel.setLayout(new BorderLayout());
+                calendarPanel.add(calendar, BorderLayout.CENTER);
+
+
 
             }
         });

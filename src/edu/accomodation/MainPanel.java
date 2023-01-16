@@ -67,6 +67,7 @@ public class MainPanel extends JFrame {
     private JButton HPprevBtn;
     private JButton HPnextBtn;
     private JList<Room> HPhotelRooms;
+    private JPanel HPcalendarPanel;
 
 
     private JXMapViewer jxMapViewerSaved = null;
@@ -118,7 +119,7 @@ public class MainPanel extends JFrame {
 
             for (Hotel hotel:hotelLists
             ) {
-                MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn, HPhotelRooms);
+                MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn, HPhotelRooms, HPcalendarPanel);
                 waypoints.add(dw);
             }
 
