@@ -16,6 +16,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
@@ -68,9 +69,14 @@ public class MainPanel extends JFrame {
     private JButton HPnextBtn;
     private JList<Room> HPhotelRooms;
     private JPanel HPcalendarPanel;
-
-
-    private JXMapViewer jxMapViewerSaved = null;
+    private JComboBox HPdayFrom;
+    private JComboBox HPmonthFrom;
+    private JComboBox HPyearFrom;
+    private JComboBox HPdayTo;
+    private JComboBox HPmonthTo;
+    private JComboBox HPyearTo;
+    private JComboBox HPnumberOfPeople;
+    private JButton HPreserveBtn;
 
     private User user;
 
@@ -84,14 +90,15 @@ public class MainPanel extends JFrame {
     //BUTTONS IN MENU CLICK HANDLERS
     private void MPloginButtonClick() {contextPanels.setSelectedIndex(0);};
 
-    private void MPmapButtonClick() throws SQLException {
 
-        createMapPanel();
+    private void MPmapButtonClickLoggedUser(User user) throws SQLException {
+
+        createMapPanel(user);
 
     };
 
-    private void createMapPanel() throws SQLException {
-        if(jxMapViewerSaved == null) {
+
+    private void createMapPanel(User user) throws SQLException {
             TileFactoryInfo info = new OSMTileFactoryInfo();
             DefaultTileFactory tileFactory = new DefaultTileFactory(info);
             JXMapViewer jxMapViewer = new JXMapViewer();
@@ -117,26 +124,28 @@ public class MainPanel extends JFrame {
             hotelLabels.add(HPhotelImg);
             Set<MyWaypoint> waypoints = new HashSet<>();
 
+            List<JComboBox> reservationComboBoxes = new ArrayList<>();
+            reservationComboBoxes.add(HPnumberOfPeople);
+            reservationComboBoxes.add(HPdayFrom);
+            reservationComboBoxes.add(HPmonthFrom);
+            reservationComboBoxes.add(HPyearFrom);
+            reservationComboBoxes.add(HPdayTo);
+            reservationComboBoxes.add(HPmonthTo);
+            reservationComboBoxes.add(HPyearTo);
+
+
             for (Hotel hotel:hotelLists
             ) {
-                MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn, HPhotelRooms, HPcalendarPanel);
+                MyWaypoint dw = new MyWaypoint(new GeoPosition(hotel.getLatitude(), hotel.getLongitude()), hotel, contextPanels, hotelLabels, HPnextBtn, HPprevBtn, HPhotelRooms, HPcalendarPanel, reservationComboBoxes, HPreserveBtn, user);
                 waypoints.add(dw);
             }
 
+
             initWaypoint(waypoints, jxMapViewer);
-
-
-
-            jxMapViewerSaved = jxMapViewer;
 
             mapPanel.add(jxMapViewer);
             mapPanel.setPreferredSize(new Dimension(100, 100));
             contextPanels.setSelectedIndex(1);
-        } else {
-            contextPanels.setSelectedIndex(1);
-        }
-
-
 
     }
 
@@ -162,7 +171,8 @@ public class MainPanel extends JFrame {
                 JOptionPane.showMessageDialog(loginPanel, "Logowanie powiodło się", "Dostęp przyznany", JOptionPane.INFORMATION_MESSAGE);
                 MPmenuLoginButton.setEnabled(false);
                 MPmenuLoginButton.setText("Witaj " + user.getFirstName());
-                createMapPanel();
+
+                createMapPanel(user);
             } else {
                 JOptionPane.showMessageDialog(loginPanel, "Nieprawidłowe dane", "Spróbuj ponownie", JOptionPane.ERROR_MESSAGE);
             }
@@ -225,16 +235,22 @@ public class MainPanel extends JFrame {
                     MPloginButtonClick();
             }
         });
+
+        for(ActionListener al: MPmenuMapButton.getActionListeners()) {
+            MPmenuMapButton.removeActionListener(al);
+        }
         MPmenuMapButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    MPmapButtonClick();
+                    MPmapButtonClickLoggedUser(user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
             }
         });
+
+
 
 
         //LOGIN PANEL BANER

@@ -3,11 +3,19 @@ package edu.accomodation.UserHandling;
 import javax.security.auth.kerberos.EncryptionKey;
 
 public class User {
+    private int id;
     private String login;
     private String password;
     private String email;
     private String firstName;
     private String lastName;
+
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getLogin() {
         return login;

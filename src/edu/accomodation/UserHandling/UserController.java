@@ -10,13 +10,14 @@ public class UserController {
     Connection conn = dbConn.getConnection();
 
     public User readUser(String login) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT login, password, email, firstName, lastName from Users where login = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT id_user, login, password, email, firstName, lastName from Users where login = ?");
         stmt.setString(1, login);
 
         ResultSet rs = stmt.executeQuery();
         rs.next();
 
         User listedUser = new User();
+        listedUser.setId(rs.getInt("id_user"));
         listedUser.setLogin(rs.getString("login"));
         listedUser.setPassword(rs.getString("password"));
         listedUser.setEmail(rs.getString("email"));
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     public User checkUser(String login, String email) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT login, password, email, firstName, lastName from Users where login = ? OR email = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT id_user, login, password, email, firstName, lastName from Users where login = ? OR email = ?");
         stmt.setString(1, login);
         stmt.setString(2, email);
 
@@ -35,6 +36,7 @@ public class UserController {
         rs.next();
 
         User listedUser = new User();
+        listedUser.setId(rs.getInt("id_user"));
         listedUser.setLogin(rs.getString("login"));
         listedUser.setPassword(rs.getString("password"));
         listedUser.setEmail(rs.getString("email"));

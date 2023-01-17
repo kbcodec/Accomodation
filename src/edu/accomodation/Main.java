@@ -1,22 +1,14 @@
 package edu.accomodation;
 
+import edu.accomodation.Forms.MainMenu;
+
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) throws IOException, SQLException {
+    public static void main(String[] args) throws IOException {
 
-        List<Room> rooms = new RoomDatabasePersister().listRoomsByHotelId(10001);
-        for (Room r :
-                rooms) {
-            System.out.println(r.toString());
-        }
-
-        //formatka
-        new MainPanel("Accomodation").setVisible(true);
+        new MainMenu("Accomodation").setVisible(true);
 
     }
 }
