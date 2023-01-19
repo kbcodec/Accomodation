@@ -49,7 +49,7 @@ public class LoginForm extends JFrame{
     }
 
     void addBanner(JPanel imagePanel) throws IOException {
-        BufferedImage img = ImageIO.read(new File("BGM_v2/imgs/header-image.jpg"));
+        BufferedImage img = ImageIO.read(new File("imgs/header-image.jpg"));
         imagePanel.setBackground(new Color(0, 0, 0, 0));
         imagePanel.setOpaque(false);
         imagePanel.setLayout(new GridLayout());

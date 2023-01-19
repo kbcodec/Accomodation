@@ -85,7 +85,6 @@ public class HotelPanel extends JFrame{
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
-                    System.out.println(roomTable.getSelectedRow());
                 }
             }
         });
@@ -224,9 +223,6 @@ public class HotelPanel extends JFrame{
 
 
         calendar.getSchedule().getAllItems().removeAll(calendar.getSchedule().getAllItems());
-
-        System.out.println("Rozmiar appointsmentow po usunieciu");
-        System.out.println(calendar.getSchedule().getAllItems().size());
 
         List<Reservation> reservations = new RoomReservedPersister().getAllReservationDependsOnRoomNumber((Integer) roomTable.getValueAt(row, 0));
         for (int iter = 0; iter < reservations.size(); iter++) {
