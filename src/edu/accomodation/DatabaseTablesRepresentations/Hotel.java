@@ -1,8 +1,4 @@
-package edu.accomodation;
-
-import edu.accomodation.DBHandling.DBConnection;
-
-import java.sql.*;
+package edu.accomodation.DatabaseTablesRepresentations;
 
 public class Hotel {
 

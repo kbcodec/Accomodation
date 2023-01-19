@@ -1,20 +1,19 @@
 package edu.accomodation.Forms;
 
-import edu.accomodation.UserHandling.User;
-import edu.accomodation.UserHandling.UserController;
+import edu.accomodation.DatabaseTablesRepresentations.User;
+import edu.accomodation.DatabasePerisisters.UserPerisister;
+import edu.accomodation.Interfaces.IFormLayout;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class LoginForm extends JFrame{
+public class LoginForm extends JFrame implements IFormLayout {
     private JPanel MainP;
     private JPanel titlePanel;
     private JPanel menuContainer;
@@ -48,15 +47,6 @@ public class LoginForm extends JFrame{
         });
     }
 
-    void addBanner(JPanel imagePanel) throws IOException {
-        BufferedImage img = ImageIO.read(new File("imgs/header-image.jpg"));
-        imagePanel.setBackground(new Color(0, 0, 0, 0));
-        imagePanel.setOpaque(false);
-        imagePanel.setLayout(new GridLayout());
-        imagePanel.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
-        imagePanel.add(new JLabel(new ImageIcon(img)));
-    }
-
     void backToMenu() throws IOException {
         this.dispose();
         new MainMenu("Accomodation").setVisible(true);
@@ -67,7 +57,7 @@ public class LoginForm extends JFrame{
         char[] passwordFromPf = passwordTextField.getPassword();
 
         try {
-            loggedUser = new UserController().readUser(loginFromTf);
+            loggedUser = new UserPerisister().readUser(loginFromTf);
             if(BCrypt.checkpw(String.valueOf(passwordFromPf), loggedUser.getPassword()))
             {
                 JOptionPane.showMessageDialog(MainP, "Logowanie powiodło się", "Dostęp przyznany", JOptionPane.INFORMATION_MESSAGE);

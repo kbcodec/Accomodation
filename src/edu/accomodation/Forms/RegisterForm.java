@@ -1,15 +1,12 @@
 package edu.accomodation.Forms;
 
-import edu.accomodation.UserHandling.User;
-import edu.accomodation.UserHandling.UserController;
+import edu.accomodation.DatabaseTablesRepresentations.User;
+import edu.accomodation.DatabasePerisisters.UserPerisister;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
@@ -77,7 +74,7 @@ public class RegisterForm extends JFrame{
 
         if (isUservalid(firstNameFromTf, lastNameFromTf, loginFromTf, String.valueOf(passwordFromTf), String.valueOf(passwordConfirmed), emailFromTf)) {
             try {
-                User checkingUser = new UserController().checkUser(loginFromTf, emailFromTf);
+                User checkingUser = new UserPerisister().checkUser(loginFromTf, emailFromTf);
                 JOptionPane.showMessageDialog(registerPanel,
                         "Użytkownik o podanym email/loginie już istnieje, spróbuj ponownie.",
                         "Niepowodzenie",
@@ -85,7 +82,7 @@ public class RegisterForm extends JFrame{
                 checkingUser = null;
             }
             catch (SQLException e) {
-                new UserController().addUser(loginFromTf, String.valueOf(passwordFromTf), emailFromTf, firstNameFromTf, lastNameFromTf);
+                new UserPerisister().addUser(loginFromTf, String.valueOf(passwordFromTf), emailFromTf, firstNameFromTf, lastNameFromTf);
                 JOptionPane.showMessageDialog(registerPanel,
                         "Udał się utworzyć użytkownika, teraz możesz się zalgować do aplikacji.",
                         "Powodzenie",

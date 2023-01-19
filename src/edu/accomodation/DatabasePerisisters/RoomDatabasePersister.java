@@ -1,8 +1,8 @@
-package edu.accomodation;
+package edu.accomodation.DatabasePerisisters;
 
 import edu.accomodation.DBHandling.DBConnection;
+import edu.accomodation.DatabaseTablesRepresentations.Room;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -69,5 +69,27 @@ public class RoomDatabasePersister {
         }
 
         return matchesRooms;
+    }
+
+    public List<Room> listAllRoomsWithHotelNameAndLocalization() throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("select h.name, a.city, r.room_number, r.max_occupancy, r.price_per_night from rooms r\n" +
+                " inner join Hotels h on r.id_hotel = h.id_hotel\n" +
+                " inner join Address a on h.id_address = a.id_address\n" +
+                " order by city;");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Room> allRooms = new ArrayList<>();
+
+        while(rs.next()) {
+            Room listedRoom = new Room();
+            listedRoom.setHotelName(rs.getString(1));
+            listedRoom.setCity(rs.getString(2));
+            listedRoom.setRoom_number(rs.getInt(3));
+            listedRoom.setMax_occupancy(rs.getInt(4));
+            listedRoom.setPrice_per_night(rs.getInt(5));
+            allRooms.add(listedRoom);
+        }
+
+        return allRooms;
     }
 }

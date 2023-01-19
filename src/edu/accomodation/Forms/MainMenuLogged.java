@@ -1,18 +1,17 @@
 package edu.accomodation.Forms;
 
-import edu.accomodation.UserHandling.User;
+import edu.accomodation.DatabaseTablesRepresentations.User;
+import edu.accomodation.Interfaces.IFormLayout;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class MainMenuLogged extends JFrame{
+public class MainMenuLogged extends JFrame implements IFormLayout {
     private JPanel titlePanel;
     private JPanel menuContainer;
     private JButton logOutButton;
@@ -50,16 +49,8 @@ public class MainMenuLogged extends JFrame{
             }
         });
         exitButton.addActionListener(e -> exit());
+        findButton.addActionListener(e -> openSearchForm(loggedUser));
 
-    }
-
-    void addBanner(JPanel imagePanel) throws IOException {
-        BufferedImage img = ImageIO.read(new File("imgs/header-image.jpg"));
-        imagePanel.setBackground(new Color(0, 0, 0, 0));
-        imagePanel.setOpaque(false);
-        imagePanel.setLayout(new GridLayout());
-        imagePanel.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
-        imagePanel.add(new JLabel(new ImageIcon(img)));
     }
 
     void logOut(User user) throws IOException {
@@ -74,6 +65,11 @@ public class MainMenuLogged extends JFrame{
 
     void showMap(User user) throws SQLException {
         new MapPanel("Mapa hoteli", user).setVisible(true);
+        this.setVisible(false);
+    }
+
+    void openSearchForm(User user) {
+        new FindHotelForm("Znajdź pokój", user).setVisible(true);
         this.setVisible(false);
     }
 }

@@ -1,6 +1,7 @@
-package edu.accomodation;
+package edu.accomodation.DatabasePerisisters;
 
 import edu.accomodation.DBHandling.DBConnection;
+import edu.accomodation.DatabaseTablesRepresentations.Hotel;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,6 +43,19 @@ public class HotelDatabasePersister {
 
 
         return listedHotel;
+    }
+
+    public int getHotelIdByName(String hotelName) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT id_hotel FROM Hotels WHERE name = ?");
+        stmt.setString(1, hotelName);
+
+        ResultSet rs = stmt.executeQuery();
+        int result = 0;
+
+        while(rs.next()) {
+            result = rs.getInt("id_hotel");
+        }
+        return result;
     }
 
     public List<Hotel> listHotels() throws SQLException {

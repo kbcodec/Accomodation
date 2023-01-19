@@ -1,5 +1,7 @@
 package edu.accomodation.Forms;
 
+import edu.accomodation.Interfaces.IFormLayout;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class MainMenu extends JFrame{
+public class MainMenu extends JFrame implements IFormLayout {
     private JPanel MainP;
     private JPanel titlePanel;
     private JPanel menuContainer;
@@ -53,6 +55,8 @@ public class MainMenu extends JFrame{
                 throw new RuntimeException(ex);
             }
         });
+
+        findButton.addActionListener(e -> openSearchForm());
     }
 
     private void showMap() throws SQLException {
@@ -65,21 +69,17 @@ public class MainMenu extends JFrame{
         new RegisterForm("Rejestracja").setVisible(true);
     }
 
-    void addBanner(JPanel imagePanel) throws IOException {
-        BufferedImage img = ImageIO.read(new File("imgs/header-image.jpg"));
-        imagePanel.setBackground(new Color(0, 0, 0, 0));
-        imagePanel.setOpaque(false);
-        imagePanel.setLayout(new GridLayout());
-        imagePanel.setPreferredSize(new Dimension(img.getWidth(), img.getHeight()));
-        imagePanel.add(new JLabel(new ImageIcon(img)));
-    }
-
     void openLoginForm() throws IOException {
         this.dispose();
         new LoginForm("Logowanie").setVisible(true);
     }
     void exit(){
         this.dispose();
+    }
+
+    void openSearchForm() {
+        this.dispose();
+        new FindHotelForm("Znajdź pokój", null).setVisible(true);
     }
 
 }

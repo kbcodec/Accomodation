@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="edu.accomodation.Forms.FindHotelForm">
+  <grid id="27dc6" binding="MainP" layout-manager="GridLayoutManager" row-count="4" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="1600" height="800"/>
+    </constraints>
+    <properties>
+      <maximumSize width="1600" height="800"/>
+      <minimumSize width="1600" height="800"/>
+      <opaque value="false"/>
+      <preferredSize width="1600" height="800"/>
+    </properties>
+    <border type="none"/>
+    <children>
+      <grid id="b9b31" binding="titlePanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="20" left="0" bottom="20" right="0"/>
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <background color="-14741195"/>
+        </properties>
+        <border type="none"/>
+        <children>
+          <component id="f474" class="javax.swing.JLabel">
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14741195"/>
+              <font name="Inter" size="36" style="1"/>
+              <foreground color="-270988"/>
+              <text value="Accomodation"/>
+            </properties>
+          </component>
+        </children>
+      </grid>
+      <grid id="2f703" binding="parametersPanel" layout-manager="GridLayoutManager" row-count="1" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <grid id="a6738" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-14741195"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="5cc38" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-3356929"/>
+                  <text value="Data przyjazdu"/>
+                </properties>
+              </component>
+              <component id="6a5d5" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-3356929"/>
+                  <text value="Dzień"/>
+                </properties>
+              </component>
+              <component id="aca3f" class="javax.swing.JComboBox" binding="dayFrom">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="1"/>
+                    <item value="2"/>
+                    <item value="3"/>
+                    <item value="4"/>
+                    <item value="5"/>
+                    <item value="6"/>
+                    <item value="7"/>
+                    <item value="8"/>
+                    <item value="9"/>
+                    <item value="10"/>
+                    <item value="11"/>
+                    <item value="12"/>
+                    <item value="13"/>
+                    <item value="14"/>
+                    <item value="15"/>
+                    <item value="16"/>
+                    <item value="17"/>
+                    <item value="18"/>
+                    <item value="19"/>
+                    <item value="20"/>
+                    <item value="21"/>
+                    <item value="22"/>
+                    <item value="23"/>
+                    <item value="24"/>
+                    <item value="25"/>
+                    <item value="26"/>
+                    <item value="27"/>
+                    <item value="28"/>
+                    <item value="29"/>
+                    <item value="30"/>
+                    <item value="31"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="e0b9" class="javax.swing.JComboBox" binding="monthFrom">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="styczeń"/>
+                    <item value="luty"/>
+                    <item value="marzec"/>
+                    <item value="kwiecień"/>
+                    <item value="maj"/>
+                    <item value="czerwiec"/>
+                    <item value="lipiec"/>
+                    <item value="sierpień"/>
+                    <item value="wrzesień"/>
+                    <item value="październik"/>
+                    <item value="listopad"/>
+                    <item value="grudzień"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="3e46f" class="javax.swing.JComboBox" binding="yearFrom">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="2023"/>
+                    <item value="2024"/>
+                    <item value="2025"/>
+                    <item value="2026"/>
+                    <item value="2027"/>
+                    <item value="2028"/>
+                    <item value="2029"/>
+                    <item value="2030"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="36241" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-3356929"/>
+                  <text value="Rok"/>
+                </properties>
+              </component>
+              <component id="f45e2" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-3356929"/>
+                  <text value="Miesiąc"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="fa4b8" layout-manager="GridLayoutManager" row-count="3" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-3356929"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="a6662" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="3" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-14741195"/>
+                  <text value="Data odjazdu"/>
+                </properties>
+              </component>
+              <component id="b493" class="javax.swing.JComboBox" binding="dayTo">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="1"/>
+                    <item value="2"/>
+                    <item value="3"/>
+                    <item value="4"/>
+                    <item value="5"/>
+                    <item value="6"/>
+                    <item value="7"/>
+                    <item value="8"/>
+                    <item value="9"/>
+                    <item value="10"/>
+                    <item value="11"/>
+                    <item value="12"/>
+                    <item value="13"/>
+                    <item value="14"/>
+                    <item value="15"/>
+                    <item value="16"/>
+                    <item value="17"/>
+                    <item value="18"/>
+                    <item value="19"/>
+                    <item value="20"/>
+                    <item value="21"/>
+                    <item value="22"/>
+                    <item value="23"/>
+                    <item value="24"/>
+                    <item value="25"/>
+                    <item value="26"/>
+                    <item value="27"/>
+                    <item value="28"/>
+                    <item value="29"/>
+                    <item value="30"/>
+                    <item value="31"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="a1026" class="javax.swing.JComboBox" binding="monthTo">
+                <constraints>
+                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="styczeń"/>
+                    <item value="luty"/>
+                    <item value="marzec"/>
+                    <item value="kwiecień"/>
+                    <item value="maj"/>
+                    <item value="czerwiec"/>
+                    <item value="lipiec"/>
+                    <item value="sierpień"/>
+                    <item value="wrzesień"/>
+                    <item value="październik"/>
+                    <item value="listopad"/>
+                    <item value="grudzień"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="c83c4" class="javax.swing.JComboBox" binding="yearTo">
+                <constraints>
+                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="2023"/>
+                    <item value="2024"/>
+                    <item value="2025"/>
+                    <item value="2026"/>
+                    <item value="2027"/>
+                    <item value="2028"/>
+                    <item value="2029"/>
+                    <item value="2030"/>
+                  </model>
+                </properties>
+              </component>
+              <component id="92dd8" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-14741195"/>
+                  <text value="Dzień"/>
+                </properties>
+              </component>
+              <component id="92ed2" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-14741195"/>
+                  <text value="Miesiąc"/>
+                </properties>
+              </component>
+              <component id="98b9f" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-14741195"/>
+                  <text value="Rok"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+          <grid id="ecaa3" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-270988"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="2807c" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-14741195"/>
+                  <text value="Liczba gości"/>
+                </properties>
+              </component>
+              <component id="eff3b" class="javax.swing.JComboBox" binding="questsNumber">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <model>
+                    <item value="1"/>
+                    <item value="2"/>
+                    <item value="3"/>
+                    <item value="4"/>
+                    <item value="5"/>
+                    <item value="6"/>
+                    <item value="7"/>
+                    <item value="8"/>
+                    <item value="9"/>
+                    <item value="10"/>
+                    <item value="11"/>
+                    <item value="12"/>
+                  </model>
+                </properties>
+              </component>
+              <vspacer id="289eb">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+            </children>
+          </grid>
+          <grid id="462bc" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <background color="-270988"/>
+            </properties>
+            <border type="none"/>
+            <children>
+              <component id="80a7" class="javax.swing.JTextField" binding="cityTf">
+                <constraints>
+                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="1" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                    <preferred-size width="150" height="-1"/>
+                  </grid>
+                </constraints>
+                <properties/>
+              </component>
+              <vspacer id="8a2be">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="1" anchor="0" fill="2" indent="0" use-parent-layout="false"/>
+                </constraints>
+              </vspacer>
+              <component id="a4fc" class="javax.swing.JLabel">
+                <constraints>
+                  <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <font name="Inter" size="14" style="1"/>
+                  <foreground color="-14741195"/>
+                  <text value="Miejscowość"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
+        </children>
+      </grid>
+      <scrollpane id="59049" binding="hotelsFindContainer">
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="7edb6" class="javax.swing.JTable" binding="hotelsTable">
+            <constraints/>
+            <properties/>
+          </component>
+        </children>
+      </scrollpane>
+      <component id="29d79" class="javax.swing.JButton" binding="searchBtn">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="50"/>
+            <preferred-size width="-1" height="50"/>
+            <maximum-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-14741195"/>
+          <font name="Inter" size="20" style="1"/>
+          <foreground color="-270988"/>
+          <selected value="true"/>
+          <text value="ZNAJDŹ POKÓJ"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>

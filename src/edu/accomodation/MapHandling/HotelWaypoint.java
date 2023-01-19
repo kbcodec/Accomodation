@@ -1,7 +1,7 @@
 package edu.accomodation.MapHandling;
 
 import edu.accomodation.Forms.HotelPanel;
-import edu.accomodation.UserHandling.User;
+import edu.accomodation.DatabaseTablesRepresentations.User;
 import org.jxmapviewer.viewer.DefaultWaypoint;
 import org.jxmapviewer.viewer.GeoPosition;
 

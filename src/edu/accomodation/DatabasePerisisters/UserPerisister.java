@@ -1,11 +1,12 @@
-package edu.accomodation.UserHandling;
+package edu.accomodation.DatabasePerisisters;
 
 import edu.accomodation.DBHandling.DBConnection;
+import edu.accomodation.DatabaseTablesRepresentations.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 
-public class UserController {
+public class UserPerisister {
     DBConnection dbConn = new DBConnection();
     Connection conn = dbConn.getConnection();
 

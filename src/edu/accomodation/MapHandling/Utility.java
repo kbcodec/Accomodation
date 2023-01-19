@@ -1,4 +1,4 @@
-package edu.accomodation;
+package edu.accomodation.MapHandling;
 
 import com.mindfusion.common.DateTime;
 import com.mindfusion.scheduling.Calendar;
@@ -29,16 +29,6 @@ public class Utility {
                 app.setEndTime(dateTo);
                 app.setHeaderText("Rezerwacja pokoju " + roomNumber);
                 calendar.getSchedule().getItems().add(app);
-            }
-        });
-
-    }
-
-    public void removeProgresses() {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-
             }
         });
     }

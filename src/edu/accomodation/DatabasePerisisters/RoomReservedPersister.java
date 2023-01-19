@@ -1,13 +1,12 @@
-package edu.accomodation;
+package edu.accomodation.DatabasePerisisters;
 
-import com.mindfusion.common.DateTime;
 import edu.accomodation.DBHandling.DBConnection;
+import edu.accomodation.DatabaseTablesRepresentations.Reservation;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

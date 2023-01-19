@@ -1,4 +1,4 @@
-package edu.accomodation.UserHandling;
+package edu.accomodation.DatabaseTablesRepresentations;
 
 import javax.security.auth.kerberos.EncryptionKey;
 

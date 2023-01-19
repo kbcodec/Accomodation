@@ -1,4 +1,4 @@
-package edu.accomodation;
+package edu.accomodation.DatabasePerisisters;
 
 import com.mindfusion.common.DateTime;
 import edu.accomodation.DBHandling.DBConnection;

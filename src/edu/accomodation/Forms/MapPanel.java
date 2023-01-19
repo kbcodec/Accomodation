@@ -1,10 +1,10 @@
 package edu.accomodation.Forms;
 
-import edu.accomodation.Hotel;
-import edu.accomodation.HotelDatabasePersister;
+import edu.accomodation.DatabaseTablesRepresentations.Hotel;
+import edu.accomodation.DatabasePerisisters.HotelDatabasePersister;
 import edu.accomodation.MapHandling.HotelWaypoint;
 import edu.accomodation.MapHandling.HotelWaypointRenderer;
-import edu.accomodation.UserHandling.User;
+import edu.accomodation.DatabaseTablesRepresentations.User;
 import org.jxmapviewer.JXMapViewer;
 import org.jxmapviewer.OSMTileFactoryInfo;
 import org.jxmapviewer.input.PanMouseInputListener;
@@ -15,8 +15,6 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashSet;

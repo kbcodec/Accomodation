@@ -1,4 +1,4 @@
-package edu.accomodation;
+package edu.accomodation.DatabaseTablesRepresentations;
 
 public class RoomReserved {
     private int id_room_reserved;

@@ -1,8 +1,8 @@
-package edu.accomodation;
+package edu.accomodation.DatabasePerisisters;
 
+import edu.accomodation.DatabaseTablesRepresentations.Address;
 import edu.accomodation.DBHandling.DBConnection;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

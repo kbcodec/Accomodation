@@ -3,19 +3,21 @@ package edu.accomodation.Forms;
 import com.mindfusion.common.DateTime;
 import com.mindfusion.scheduling.Calendar;
 import com.mindfusion.scheduling.ThemeType;
-import com.mindfusion.scheduling.model.Appointment;
-import com.mindfusion.scheduling.model.Item;
-import com.mindfusion.scheduling.model.ItemList;
-import edu.accomodation.*;
-import edu.accomodation.UserHandling.User;
-import jdk.swing.interop.SwingInterOpUtils;
+import edu.accomodation.DatabasePerisisters.HotelDatabasePersister;
+import edu.accomodation.DatabasePerisisters.ReservationDatabasePersister;
+import edu.accomodation.DatabasePerisisters.RoomDatabasePersister;
+import edu.accomodation.DatabasePerisisters.RoomReservedPersister;
+import edu.accomodation.DatabaseTablesRepresentations.Hotel;
+import edu.accomodation.DatabaseTablesRepresentations.Reservation;
+import edu.accomodation.DatabaseTablesRepresentations.Room;
+import edu.accomodation.DatabaseTablesRepresentations.User;
+import edu.accomodation.MapHandling.Utility;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -27,7 +29,6 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class HotelPanel extends JFrame{

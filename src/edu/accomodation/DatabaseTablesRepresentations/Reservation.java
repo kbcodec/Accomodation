@@ -1,4 +1,4 @@
-package edu.accomodation;
+package edu.accomodation.DatabaseTablesRepresentations;
 
 import com.mindfusion.common.DateTime;
 

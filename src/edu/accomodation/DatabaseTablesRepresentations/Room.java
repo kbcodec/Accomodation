@@ -1,4 +1,4 @@
-package edu.accomodation;
+package edu.accomodation.DatabaseTablesRepresentations;
 
 public class Room {
     private int room_number;
@@ -7,6 +7,8 @@ public class Room {
     private int price_per_night;
     private int id_hotel;
     private Hotel hotel;
+    private String hotelName;
+    private String city;
 
     public int getRoom_number() {
         return room_number;
@@ -55,6 +57,11 @@ public class Room {
     public void setHotel(Hotel hotel) {
         this.hotel = hotel;
     }
+    public String getHotelName() {return hotelName;}
+    public void setHotelName(String hotelName) {this.hotelName = hotelName;}
+    public String getCity() {return city;}
+    public void setCity(String city) {this.city = city;}
+
 
     @Override
     public String toString() {
