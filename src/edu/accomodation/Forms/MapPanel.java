@@ -15,6 +15,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashSet;
@@ -31,7 +33,7 @@ public class MapPanel extends JFrame{
 
     public MapPanel(String title, User loggedUser) throws HeadlessException, SQLException {
         super(title);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setContentPane(MainP);
         this.pack();
         this.setLocationRelativeTo(null);
@@ -53,12 +55,35 @@ public class MapPanel extends JFrame{
             }
         });
 
+        this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                if (loggedUser == null) {
+                    try {
+                        new MainMenu("Menu").setVisible(true);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                } else {
+                    try {
+                        new MainMenuLogged("Menu", loggedUser).setVisible(true);
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+            }
+        });
+
         createMapPanel();
     }
 
     void backToMenu(User user) throws IOException {
         this.setVisible(false);
-        new MainMenuLogged("Accomodation", user).setVisible(true);
+        if(user == null) {
+            new MainMenu("Accomodation").setVisible(true);
+        } else {
+            new MainMenuLogged("Accomodation", user).setVisible(true);
+        }
     }
 
     void logOut(User user) throws IOException {

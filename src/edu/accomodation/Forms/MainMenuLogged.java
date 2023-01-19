@@ -20,6 +20,7 @@ public class MainMenuLogged extends JFrame implements IFormLayout {
     private JButton exitButton;
     private JPanel MainP;
     private JPanel imagePanel;
+    private JButton userReservationsBtn;
 
     private User loggedUser;
 
@@ -50,7 +51,19 @@ public class MainMenuLogged extends JFrame implements IFormLayout {
         });
         exitButton.addActionListener(e -> exit());
         findButton.addActionListener(e -> openSearchForm(loggedUser));
+        userReservationsBtn.addActionListener(e -> {
+            try {
+                checkYourReservations(loggedUser);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
 
+    }
+
+    private void checkYourReservations(User loggedUser) throws IOException {
+        new UserReservationsForm("Twoje rezerwacje", loggedUser).setVisible(true);
+        this.dispose();
     }
 
     void logOut(User user) throws IOException {

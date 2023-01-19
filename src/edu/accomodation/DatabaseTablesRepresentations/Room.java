@@ -1,5 +1,7 @@
 package edu.accomodation.DatabaseTablesRepresentations;
 
+import java.sql.Date;
+
 public class Room {
     private int room_number;
     private String type;

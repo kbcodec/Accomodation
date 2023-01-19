@@ -101,7 +101,7 @@ public class HotelPanel extends JFrame{
                     monthFromCb.getSelectedIndex() + 1,
                     dayFromCb.getSelectedIndex() + 1, 12, 0);
                 LocalDateTime dateTo = LocalDateTime.of(
-                    Integer.parseInt((String) yearToCb.getItemAt(yearFromCb.getSelectedIndex())),
+                    Integer.parseInt((String) yearToCb.getItemAt(yearToCb.getSelectedIndex())),
                     monthToCb.getSelectedIndex() + 1,
                     dayToCb.getSelectedIndex() +1, 10, 0);
 

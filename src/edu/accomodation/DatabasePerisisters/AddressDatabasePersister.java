@@ -49,4 +49,15 @@ public class AddressDatabasePersister {
 
         return matchesAddresses;
     }
+
+    public List<String> listCitiesFromAddresses() throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT city FROM address");
+        ResultSet rs = stmt.executeQuery();
+        List<String> result = new ArrayList<>();
+        while(rs.next()) {
+            String address = rs.getString("city");
+            result.add(address);
+        }
+        return result;
+    }
 }
