@@ -1,10 +1,24 @@
 package edu.accomodation.DatabaseTablesRepresentations;
 
+/**
+ * Klasa reprezentująca adres, w tym identyfikator, miasto, kod pocztowy, ulicę i numer.
+ */
 public class Address {
+
+
+    /** id_address - id adresu w bazie danych */
     private int id_address;
+
+    /** city - miasto adresu */
     private String city;
+
+    /** zip_code - kod pocztowy adresu */
     private String zip_code;
+
+    /** street - ulica adresu */
     private String street;
+
+    /** number  - numer adresu */
     private String number;
 
     //SETTERS
@@ -29,6 +43,11 @@ public class Address {
         this.number = number;
     }
 
+
+    /**
+     * metoda, która zwraca ciąg reprezentujący adres
+     * @return ciąg reprezentujący adres
+     */
     @Override
     public String toString() {
         return "Address{" +

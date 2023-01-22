@@ -2,14 +2,33 @@ package edu.accomodation.DatabaseTablesRepresentations;
 
 import java.sql.Date;
 
+/**
+ * Klasa reprezentująca tabele Room z bazy danych
+ */
 public class Room {
+
+    /** Numer pokoju */
     private int room_number;
+
+    /** Rodzaj pokoju */
     private String type;
+
+    /** Maksymalne obłożenie pokoju */
     private int max_occupancy;
+
+    /** Cena za dobę pokoju */
     private int price_per_night;
+
+    /** Identyfikator hotelu, do którego należy pokój*/
     private int id_hotel;
+
+    /** Obiekt hotelowy, do którego należy pokój*/
     private Hotel hotel;
+
+    /** Nazwa hotelu, do którego należy pokój */
     private String hotelName;
+
+    /** Miasto, w którym znajduje się hotel  */
     private String city;
 
     public int getRoom_number() {
@@ -65,6 +84,10 @@ public class Room {
     public void setCity(String city) {this.city = city;}
 
 
+    /**
+     * metoda, która zwraca ciąg reprezentujący pokój
+     * @return ciąg reprezentujący pokój
+     */
     @Override
     public String toString() {
         String typeFormatting = String.format("%30s", type);

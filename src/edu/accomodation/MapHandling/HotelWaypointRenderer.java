@@ -7,7 +7,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Point2D;
 
+/**
+ * Klasa reprezentująca narysowanie punktów na mapie
+ */
 public class HotelWaypointRenderer extends WaypointPainter<HotelWaypoint> {
+
+    /**
+    * Metoda odpowiedzialna za rysowanie punktów na mapie
+    * @param g - obiekt Graphics2D, który jest odpowiedzialny za rysowanie grafiki na mapie
+    * @param map - obiekt JXMapViewer, który przechowuje mapę
+    * @param width - szerokość obszaru rysowania
+    * @param height - wysokość obszaru rysowania
+    */
     @Override
     protected void doPaint(Graphics2D g, JXMapViewer map, int width, int height) {
         for(HotelWaypoint wp: getWaypoints()) {

@@ -4,11 +4,24 @@ import com.mindfusion.common.DateTime;
 
 import java.sql.Date;
 
+/**
+ * Klasa reprezentująca tabele "Reservations" z bazy danych
+ */
 public class Reservation {
+
+    /** Unikalny identyfikator rezerwacji */
     private int id_reservation;
+
+    /** Unikalny identyfikator klienta */
     private int id_user;
-    private Date check_in_date;
+
+    /** data początku rezerwacji */
     private Date check_out_date;
+
+    /** data końca rezerwacji */
+    private Date check_in_date;
+
+    /** sumaryczny koszt rezerwacji */
     private double total_price;
 
     public int getId_reservation() {
@@ -51,6 +64,11 @@ public class Reservation {
         this.total_price = total_price;
     }
 
+
+    /**
+     * metoda, która zwraca ciąg reprezentujący rezerwacje
+     * @return ciąg reprezentujący rezerwacje
+     */
     @Override
     public String toString() {
         return "Reservation{" +

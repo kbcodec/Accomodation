@@ -1,23 +1,60 @@
 package edu.accomodation.DatabaseTablesRepresentations;
 
+
+/**
+ * Klasa reprezentująca tabele hotels z bazy danych
+ */
 public class Hotel {
 
+    /** Unikalny identyfikator hotelu */
     private int id_hotel;
+
+    /** Nazwa hotelu */
     private String name;
+
+    /** Opis hotelu */
     private String description;
+
+    /** Rodzaj hotelu */
     private String type;
+
+    /** Rodzaj hotelu*/
     private String category;
+
+    /** ID Adresu hotelu*/
     private int id_address;
+
+    /** Numer telefonu hotelowego */
     private String phone;
+
+    /** Adres sieciowy hotelu */
     private String web;
+
+    /** Adres e-mail hotelu */
     private String email;
+
+    /** Szerokość geograficzna lokalizacji hotelu*/
     private double latitude;
+
+    /** Długość geograficzna lokalizacji hotelu */
     private double longitude;
+
+    /** Maksymalna liczba gości, których hotel może pomieścić */
     private int max_quest;
+
+    /** Liczba pokoi w hotelu */
     private int num_of_rooms;
+
+    /** Pierwsze zdjęcie hotelowe */
     private String picture1;
+
+    /** Drugie zdjęcie hotelowe*/
     private String picture2;
+
+    /** Trzecie zdjęcie hotelowe */
     private String picture3;
+
+    /** Adres hotelu */
     private Address address;
 
 
@@ -163,6 +200,10 @@ public class Hotel {
         return address;
     }
 
+    /**
+     * metoda, która zwraca ciąg reprezentujący hotel
+     * @return ciąg reprezentujący hotel
+     */
     @Override
     public String toString() {
         return "Hotel{" +

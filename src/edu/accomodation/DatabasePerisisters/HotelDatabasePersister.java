@@ -10,10 +10,28 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+    /*
+    * Klasa, która współdziała z bazą danych w celu odczytywania i pobierania informacji o hotelach
+    */
 public class HotelDatabasePersister {
+
+    /**
+     * Obiekt DBConnection służący do nawiązywania połączenia z bazą danych.
+     */
     DBConnection dbConn = new DBConnection();
+
+    /**
+     * Obiekt Connection używany do wykonywania instrukcji SQL
+     */
     Connection conn = dbConn.getConnection();
 
+
+    /**
+     * Odczytuje pojedynczy hotel z bazy danych o podanym ID.
+     * @param ID identyfikator hotelu do odczytania
+     * @return listedHotel obiekt Hotel zawierający wszystkie szczegóły z tabeli „Hotels”
+     * @throws SQLException, jeśli wystąpi błąd bazy danych
+     */
     public Hotel readHotel(int ID) throws SQLException {
 
         PreparedStatement stmt = conn.prepareStatement("SELECT id_hotel, name, description, type, category, id_address, phone, web_page, email, LEFT(location_on_map, CHARINDEX(',', location_on_map)-1)  AS latitude, RIGHT(location_on_map, Len(location_on_map) - CHARINDEX(',', location_on_map)) as longitude, max_guest, num_of_rooms, picture1, picture2, picture3 FROM Hotels WHERE id_hotel = ?");
@@ -45,6 +63,14 @@ public class HotelDatabasePersister {
         return listedHotel;
     }
 
+
+
+    /**
+     * Odczytuje pojedynczy hotel z bazy danych o podanej nazwie
+     * @param hotelName nazwa hotelu do odczytania
+     * @return result ID hotelu z tabeli „Hotels”
+     * @throws SQLException, jeśli wystąpi błąd bazy danych
+     */
     public int getHotelIdByName(String hotelName) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("SELECT id_hotel FROM Hotels WHERE name = ?");
         stmt.setString(1, hotelName);
@@ -58,6 +84,11 @@ public class HotelDatabasePersister {
         return result;
     }
 
+    /**
+     * Wyświetla listę wszystkich hoteli z bazy danych.
+     * @return matchesHotels lista obiektów Hotels zawierających wszystkie hotele z bazy danych
+     * @throws SQLException, jeśli wystąpi błąd bazy danych
+     */
     public List<Hotel> listHotels() throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("SELECT id_hotel, name, description, type, category, id_address, phone, web_page, email, LEFT(location_on_map, CHARINDEX(',', location_on_map)-1)  AS latitude, RIGHT(location_on_map, Len(location_on_map) - CHARINDEX(',', location_on_map)) as longitude, max_guest, num_of_rooms, picture1, picture2, picture3 FROM Hotels;");
 
