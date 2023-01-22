@@ -13,6 +13,10 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+* Klasa reprezentująca formularz rejestracji użytkownika.
+* Zawiera pola tekstowe do wprowadzenia danych oraz przycisk do wysłania ich do bazy danych.
+*/
 public class RegisterForm extends JFrame{
     private JPanel registerPanel;
     private JTextField loginTextField;
@@ -56,11 +60,19 @@ public class RegisterForm extends JFrame{
 
     }
 
+    /**
+     * Metoda do powrotu do menu głównego.
+     */
     void backToMenu() throws IOException {
         this.dispose();
         new MainMenu("Accomodation").setVisible(true);
     }
 
+    /**
+    * Metoda tworząca nowego użytkownika na podstawie danych wprowadzonych do formularza rejestracji
+    * @throws SQLException w przypadku błędu połączenia z bazą danych
+    * @throws IOException w przypadku błędu odczytu/zapisu danych
+     */
     void createUser() throws SQLException, IOException {
         String firstNameFromTf = firstNameTextField.getText();
         String lastNameFromTf = lastNameTextField.getText();
@@ -93,6 +105,16 @@ public class RegisterForm extends JFrame{
         };
     }
 
+    /**
+     * Metoda odpowiedzialna za walidację danych wprowadzonych przez użytkownika podczas rejestracji.
+     * @param firstName - wprowadzone imie
+     * @param lastName - wprowadzone nazwisko
+     * @param login - wprowadzony login
+     * @param password - wprowadzone hasło
+     * @param confirmPassword - wprowadzone hasło ponownie
+     * @param email - email
+     * @return true - jeśli uzytkownik ma poprawne dane, false - jeśli uzytkownik nie ma poprawnych danych
+     */
     private boolean isUservalid(String firstName, String lastName, String login, String password, String confirmPassword, String email) {
         if(isFieldLongEnough(firstName, lastName, login)) {
             if(isEmailValid(email)) {
@@ -127,6 +149,11 @@ public class RegisterForm extends JFrame{
         return false;
     }
 
+    /**
+     * Metoda sprawdza, czy podany adres email jest poprawny pod względem formatu.
+     * @param email - adres email, który ma zostać sprawdzony
+     * @return true - jeśli adres email jest poprawny, false - jeśli adres email jest niepoprawny
+     */
     private boolean isEmailValid (String email) {
         String regex = "^[\\w!#$%&’*+/=?`{|}~^-]+(?:\\.[\\w!#$%&’*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
         Pattern pattern = Pattern.compile(regex);
@@ -135,10 +162,25 @@ public class RegisterForm extends JFrame{
         return matcher.matches();
     }
 
+    /**
+     * Metoda sprawdza czy podane hasła są takie same
+     * @param password hasło podane przez użytkownika
+     * @param confirmPassword hasło ponownie podane przez użytkownika
+     * @return true jeśli hasła są takie same, false jeśli różnią się
+     */
     private boolean arePasswordMatches(String password, String confirmPassword) {
         return Objects.equals(password, confirmPassword);
     }
 
+    /**
+     * Metoda sprawdza czy podane hasło spełnia wymagane warunki:
+     * długość od 8 do 20 znaków
+     * zawiera co najmniej jedną wielką literę
+     * zawiera co najmniej jedną cyfrę
+     * zawiera co najmniej jeden znak specjalny
+     * @param password - hasło do sprawdzenia
+     * @return true jeśli hasło spełnia warunki, false w przeciwnym wypadku
+     */
     private boolean isPasswordValid(String password) {
         String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
         Pattern  pattern = Pattern.compile(regex);
@@ -147,6 +189,13 @@ public class RegisterForm extends JFrame{
         return matcher.matches();
     }
 
+    /**
+     * Metoda sprawdzająca czy długość podanych pól (imię, nazwisko, login) jest wystarczająca
+     * @param firstName - imię użytkownika
+     * @param lastName - nazwisko użytkownika
+     * @param login - login użytkownika
+     * @return true jeśli długość każdego z pól jest większa lub równa 5, false w przeciwnym wypadku
+     */
     private boolean isFieldLongEnough(String firstName, String lastName, String login) {
         return firstName.length() >= 5 && lastName.length() >= 5 && login.length() >= 5;
     }

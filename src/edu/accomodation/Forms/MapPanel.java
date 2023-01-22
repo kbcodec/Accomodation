@@ -23,6 +23,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Klasa reprezentuje panel mapy hoteli
+ */
 public class MapPanel extends JFrame{
     private JPanel MainP;
     private JPanel titlePanel;
@@ -77,6 +80,10 @@ public class MapPanel extends JFrame{
         createMapPanel();
     }
 
+    /**
+     * Metoda przywraca menu główne po zamknięciu panelu mapy hoteli
+     * @param user zalogowany użytkownik
+     */
     void backToMenu(User user) throws IOException {
         this.setVisible(false);
         if(user == null) {
@@ -86,6 +93,10 @@ public class MapPanel extends JFrame{
         }
     }
 
+    /**
+     * Metoda wylogowuje użytkownika
+     * @param user zalogowany użytkownik
+     */
     void logOut(User user) throws IOException {
         user = null;
         this.dispose();
@@ -93,6 +104,9 @@ public class MapPanel extends JFrame{
     }
 
 
+    /**
+     * Metoda tworzy panel mapy hoteli
+     */
     private void createMapPanel() throws SQLException {
         TileFactoryInfo info = new OSMTileFactoryInfo();
         DefaultTileFactory tileFactory = new DefaultTileFactory(info);
@@ -123,6 +137,11 @@ public class MapPanel extends JFrame{
         mapPanel.setPreferredSize(new Dimension(100, 100));
     }
 
+    /**
+     * Metoda inicjuje waypointy na mapie. Tworzy nowy obiekt WaypointPainter.
+     * @param waypoints lista waypointów do wyświetlenia na mapie
+     * @param jxMapViewer obiekt mapy, na którym będą wyświetlane waypointy
+     */
     private void initWaypoint(Set<HotelWaypoint> waypoints, JXMapViewer jxMapViewer) {
         WaypointPainter<HotelWaypoint> wp = new HotelWaypointRenderer();
         wp.setWaypoints(waypoints);

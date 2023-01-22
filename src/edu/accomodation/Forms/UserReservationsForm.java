@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Klasa reprezentująca formularz rezerwacji dla zalogowanego użytkownika.
+ */
 public class UserReservationsForm extends JFrame implements IFormLayout {
 
     private JPanel MainP;
@@ -15,6 +18,11 @@ public class UserReservationsForm extends JFrame implements IFormLayout {
     private JTable reservationsTable;
     private User loggedUser;
 
+    /**
+     * Konstruktor tworzący formularz rezerwacji dla zalogowanego użytkownika.
+     * @param title Tytuł formularza
+     * @param loggedUser Zalogowany użytkownik
+     */
     public UserReservationsForm(String title, User loggedUser) throws HeadlessException, IOException {
         super(title);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

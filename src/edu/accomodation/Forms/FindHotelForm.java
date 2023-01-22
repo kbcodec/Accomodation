@@ -22,6 +22,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa formatki wyszukiwania hotelu. Pozwala użytkownikowi wybrać miasto, liczbę gości i daty rezerwacji.
+ */
 public class FindHotelForm extends JFrame{
     private JPanel MainP;
     private JPanel titlePanel;
@@ -96,6 +99,10 @@ public class FindHotelForm extends JFrame{
 
     }
 
+    /**
+     * Metoda odpowiedzialna za wyświetlenie listy wszystkich hoteli dostępnych w bazie danych.
+     * @param selectedRow wybrany wiersz Hotelu
+     */
     private void openHotelView(int selectedRow) {
         if(hotelsTable.getSelectedRow() != -1){
             String hotelName = (String)hotelsTable.getValueAt(selectedRow, 0);
@@ -108,6 +115,9 @@ public class FindHotelForm extends JFrame{
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za wyświetlenie listy wszystkich hoteli dostępnych w bazie danych
+     */
     private void showAllHotelsList() throws SQLException {
         roomList = new RoomDatabasePersister().listAllRoomsWithHotelNameAndLocalization();
         DefaultTableModel model = new DefaultTableModel(null, new String[] {"nazwa", "lokalizacja", "numer pokoju", "max osób", "cena"});
@@ -119,6 +129,9 @@ public class FindHotelForm extends JFrame{
         assignDataToTable(hotelsTable, roomList);
     }
 
+    /**
+     * Metoda odpowiedzialna za wstawienie nazw miast do listy rozwijanej cityCb.
+     */
     private void insertCityNamesToComboBox() throws SQLException {
         List<String> cities = new AddressDatabasePersister().listCitiesFromAddresses();
         for (String city : cities) {
@@ -126,6 +139,10 @@ public class FindHotelForm extends JFrame{
         }
     }
 
+    /**
+     * Metoda odpowiedzialna za utworzenie listy specyficznych pokoi, które spełniają kryteria wybrane przez użytkownika.
+     * @return specificRoomsList - lista odpowiadająca wymaganiom użytkownika
+     */
     private List<Room> listSpecificRooms() throws SQLException {
         List<Room> specificRoomsList = new ArrayList<>();
         String userCity = (String)cityCb.getSelectedItem();
@@ -154,6 +171,10 @@ public class FindHotelForm extends JFrame{
 
     }
 
+    /**
+     * Metoda odpowiedzialna za aktualizację tabeli hotelsTable na podstawie wybranych parametrów wyszukiwania
+     * @param table - tabela aktualizowana
+     */
     private void updateTable(JTable table) throws SQLException {
         List<Room> specificRoomsList = listSpecificRooms();
         DefaultTableModel model = new DefaultTableModel(null, new String[] {"nazwa", "lokalizacja", "numer pokoju", "max osób", "cena"});
@@ -163,6 +184,12 @@ public class FindHotelForm extends JFrame{
         assignDataToTable(table, specificRoomsList);
     }
 
+
+    /**
+     * Metoda odpowiedzialna za przypisanie danych do tabeli
+     * @param table - nazwa tabli do której wstawiane są wartości
+     * @param list - lista pokoi
+     */
     private void assignDataToTable(JTable table, List<Room> list) {
         for(int iter = 0; iter < list.size(); iter++) {
             table.setValueAt(list.get(iter).getHotelName(), iter, 0);
