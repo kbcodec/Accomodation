@@ -1,9 +1,19 @@
 package edu.accomodation.DatabaseTablesRepresentations;
 
+/**
+ * Klasa reprezentująca tabele Room_reserved z bazy danych
+ */
 public class RoomReserved {
+    /** unikalny identyfikator rezerwacji pokoju */
     private int id_room_reserved;
+
+    /** unikalny identyfikator rezerwacji powiązanej z pokojem */
     private int id_reservation;
+
+    /** numer pokoju, który jest rezerwowany */
     private int room_number;
+
+    /** cena pokoju za dobę */
     private double price;
 
     public int getId_room_reserved() {

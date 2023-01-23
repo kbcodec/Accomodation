@@ -13,6 +13,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Klasa reprezentująca formularz logowania do aplikacji.
+ */
 public class LoginForm extends JFrame implements IFormLayout {
     private JPanel MainP;
     private JPanel titlePanel;
@@ -47,11 +50,17 @@ public class LoginForm extends JFrame implements IFormLayout {
         });
     }
 
+    /**
+     * Metoda powracająca do menu głównego aplikacji.
+     */
     void backToMenu() throws IOException {
         this.dispose();
         new MainMenu("Accomodation").setVisible(true);
     }
 
+    /**
+     * Metoda logująca użytkownika do aplikacji.
+     */
     void logInUser() {
         String loginFromTf = loginTextField.getText();
         char[] passwordFromPf = passwordTextField.getPassword();

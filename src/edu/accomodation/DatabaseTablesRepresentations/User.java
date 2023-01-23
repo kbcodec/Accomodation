@@ -2,12 +2,27 @@ package edu.accomodation.DatabaseTablesRepresentations;
 
 import javax.security.auth.kerberos.EncryptionKey;
 
+/**
+ * Klasa reprezentująca tabele User z bazy danych
+ */
 public class User {
+
+    /** Unikalny identyfikator użytkownika */
     private int id;
+
+    /** Login użytkownika */
     private String login;
+
+    /** Zahaszowane hasło użytkownika */
     private String password;
+
+    /** Adres e-mail użytkownika */
     private String email;
+
+    /** Imię użytkownika */
     private String firstName;
+
+    /** Nazwisko użytkownika */
     private String lastName;
 
     public int getId() {

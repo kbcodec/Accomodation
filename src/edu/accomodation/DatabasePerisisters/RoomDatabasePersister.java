@@ -7,10 +7,27 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+ * Klasa, która odpowiada za wykonywanie operacji na tabeli "Rooms" bazy danych
+ */
 public class RoomDatabasePersister {
+    /**
+     * Obiekt DBConnection służący do nawiązywania połączenia z bazą danych.
+     */
     DBConnection dbConn = new DBConnection();
+
+    /**
+     * Obiekt Connection używany do wykonywania instrukcji SQL
+     */
     Connection conn = dbConn.getConnection();
 
+
+    /**
+     * Metoda zwracająca listę pokoi danego hotelu na podstawie jego ID
+     * @param ID id hotelu
+     * @return matchesRooms lista pokoi danego hotelu
+     * @throws SQLException jeśli wystąpi błąd dostępu do bazy danych.
+     */
     public List<Room> listRoomsByHotelId(int ID) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("SELECT room_number, type, max_occupancy, price_per_night, id_hotel FROM Rooms WHERE id_hotel = ?");
         stmt.setInt(1, ID);
@@ -30,6 +47,12 @@ public class RoomDatabasePersister {
         return matchesRooms;
     }
 
+
+    /**
+     * Metoda zwracająca listę wszystkich pokoi z nazwą hotelu i lokalizacją.
+     * @return  allRooms lista wszystkich danych o pokojach z nazwą hotelu i lokalizacją.
+     * @throws SQLException jeśli wystąpi błąd dostępu do bazy danych.
+     */
     public List<Room> listAllRoomsWithHotelNameAndLocalization() throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("select h.name, a.city, r.room_number, r.max_occupancy, r.price_per_night from rooms r\n" +
                 " inner join Hotels h on r.id_hotel = h.id_hotel\n" +
@@ -52,6 +75,15 @@ public class RoomDatabasePersister {
         return allRooms;
     }
 
+    /**
+     * Metoda zwraca listę pokoi spełniających podane przez użytkownika parametry.
+     * @param city - miasto, w którym poszukiwany jest pokój
+     * @param dateFrom - data rozpoczęcia rezerwacji
+     * @param dateTo - data końca rezerwacji
+     * @param maxOccupancy - maksymalna liczba osób jaką pokój może pomieścić
+     * @return result - zwraca listę pokoi (obiektów Room) spełniających podane parametry
+     * @throws SQLException - w przypadku błędu połączenia z bazą danych
+     */
     public List<Room> listRoomsDependsOfUserParameters(String city, Date dateFrom, Date dateTo, int maxOccupancy) throws SQLException {
         String sql = "select distinct h.name, a.city, r.room_number, r.max_occupancy, r.price_per_night\n" +
                      "                from rooms r\n" +

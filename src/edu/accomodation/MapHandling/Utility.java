@@ -8,18 +8,33 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa służy do aktualizowania postępu rezerwacji pokoju.
+ */
 public class Utility {
 
+    /** obiekt kalendarza, w którym będzie aktualizowany postęp rezerwacji */
     private Calendar calendar;
-    private DateTime dateFrom;
+
+    /** data rozpoczęcia rezerwacji */
     private DateTime dateTo;
 
+    /**  data zakończenia rezerwacji */
+    private DateTime dateFrom;
+
+    /**
+     * Konstruktor przypisujący dane rezerwacji
+     */
     public Utility(Calendar calendar, DateTime dateFrom, DateTime dateTo) {
         this.calendar = calendar;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
     }
 
+    /**
+     * Metoda odpowiedzialna za aktualizację postępu rezerwacji
+     * @param roomNumber - numer rezerwowanego pokoju
+     */
     public void updateProgress(Integer roomNumber) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override

@@ -32,6 +32,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Klasa formatki danego hotelu. Pozwala użytkownikowi dostosowac wyszukiwania daty dla konkretnego hotelu
+ */
 public class HotelPanel extends JFrame{
     private JPanel MainP;
     private JPanel titlePanel;
@@ -133,6 +136,11 @@ public class HotelPanel extends JFrame{
 
     }
 
+
+    /**
+     * Metoda wyświetlająca listę pokojów dla wybranego hotelu.
+     * @param hotelId ID hotelu, dla którego chcemy wyświetlić listę pokojów.
+     */
     void showListOfRooms(int hotelId) throws SQLException {
         List<Room> roomsList = new RoomDatabasePersister().listRoomsByHotelId(hotelId);
         DefaultTableModel model = new DefaultTableModel(null, new String[] {"numer", "opis", "max osób", "cena"});
@@ -148,6 +156,13 @@ public class HotelPanel extends JFrame{
 
     }
 
+
+    /**
+     * Metoda createReservation służy do tworzenia rezerwacji dla wybranego pokoju, podczas podanych dat.
+     * @param dateFrom - data rozpoczęcia rezerwacji
+     * @param dateTo - data zakończenia rezerwacji
+     * @param user - obiekt reprezentujący zalogowanego użytkownika
+     */
     private void createReservation(LocalDateTime dateFrom, LocalDateTime dateTo, User user) throws SQLException {
         Utility utility = new Utility(calendar, new DateTime(dateFrom), new DateTime(dateTo));
         new ReservationDatabasePersister().addReservation(user.getId(), Date.valueOf(dateFrom.toLocalDate()), Date.valueOf(dateTo.toLocalDate()), 1.);
@@ -158,6 +173,13 @@ public class HotelPanel extends JFrame{
         JOptionPane.showMessageDialog(this, "Udało sie utworzyć rezerwację, dziekujemy.", "Udana rezerwacja", JOptionPane.INFORMATION_MESSAGE);
     }
 
+
+    /**
+     * Metoda przygotowuje obrazy dla wybranego hotelu.
+     * Pobiera trzy obrazy z adresów URL, które są przechowywane w obiekcie Hotel i skaluje je do odpowiedniego rozmiaru.
+     * @param chosenHotel obiekt typu Hotel, dla którego przygotowywane są obrazy
+     * @throws IOException gdy wystąpi błąd podczas pobierania obrazów z adresów URL
+     */
     private void prepareImages(Hotel chosenHotel) {
         Image image1;
         Image image2;
@@ -228,6 +250,10 @@ public class HotelPanel extends JFrame{
         });
     }
 
+    /**
+     * Metoda tworzy kalendarz i dodaje go do podanego kontenera
+     * @param calendarContainer kontener, do którego zostanie dodany kalendarz
+     */
     private void createCalendar(JPanel calendarContainer){
         calendar = new Calendar();
         calendar.setTheme(ThemeType.Light);
@@ -235,6 +261,11 @@ public class HotelPanel extends JFrame{
         calendarContainer.add(calendar, BorderLayout.CENTER);
     }
 
+    /**
+     * Metoda tworzy kalendarz i dodaje do niego rezerwacje pokoju, na podstawie numeru pokoju wybranego z tabeli.
+     * @param calendar Obiekt klasy Calendar, który reprezentuje kalendarz.
+     * @param row numer wiersza w tabeli, z którego pobierany jest numer pokoju.
+     */
     private void addReservationsToCalendar(Calendar calendar, int row) throws SQLException {
 
 

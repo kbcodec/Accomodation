@@ -15,6 +15,9 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Klasa reprezentująca formularz rezerwacji dla zalogowanego użytkownika.
+ */
 public class UserReservationsForm extends JFrame implements IFormLayout {
 
     private JPanel MainP;
@@ -25,6 +28,11 @@ public class UserReservationsForm extends JFrame implements IFormLayout {
     private User loggedUser;
 
     public UserReservationsForm(String title, User loggedUser) throws HeadlessException, IOException, SQLException {
+    /**
+     * Konstruktor tworzący formularz rezerwacji dla zalogowanego użytkownika.
+     * @param title Tytuł formularza
+     * @param loggedUser Zalogowany użytkownik
+     */
         super(title);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setContentPane(MainP);

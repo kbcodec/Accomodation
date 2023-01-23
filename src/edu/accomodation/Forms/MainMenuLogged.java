@@ -11,6 +11,11 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Klasa reprezentuje menu główne po zalogowaniu.
+ * Zawiera przyciski do wylogowania, wyświetlenia mapy hoteli, wyjścia z programu,
+ * wyszukania hotelu oraz przeglądnięcia swoich rezerwacji.
+ */
 public class MainMenuLogged extends JFrame implements IFormLayout {
     private JPanel titlePanel;
     private JPanel menuContainer;
@@ -61,26 +66,45 @@ public class MainMenuLogged extends JFrame implements IFormLayout {
 
     }
 
+    /**
+     * Metoda checkYourReservations otwiera okno z informacjami o rezerwacjach zalogowanego użytkownika.
+     * @param loggedUser Obiekt klasy User reprezentujący zalogowanego użytkownika
+     */
     private void checkYourReservations(User loggedUser) throws IOException, SQLException {
         new UserReservationsForm("Twoje rezerwacje", loggedUser).setVisible(true);
         this.dispose();
     }
 
+    /**
+     * Metoda logOut wylogowuje użytkownika i przekierowuje do menu głównego.
+     * @param user Obiekt klasy User reprezentujący zalogowanego użytkownika
+     */
     void logOut(User user) throws IOException {
         user = null;
         this.dispose();
         new MainMenu("Accomodation").setVisible(true);
     }
 
+    /**
+     * Metoda służy do zamknięcia okna aplikacji
+     */
     void exit() {
         this.dispose();
     }
 
+    /**
+     * Metoda wyświetlenia mapy hoteli.
+     * @param user Obiekt klasy User reprezentujący zalogowanego użytkownika
+     */
     void showMap(User user) throws SQLException {
         new MapPanel("Mapa hoteli", user).setVisible(true);
         this.setVisible(false);
     }
 
+    /**
+     * Metoda otwarcia formularza wyszukiwania hotelu.
+     * @param user Obiekt klasy User reprezentujący zalogowanego użytkownika
+     */
     void openSearchForm(User user) {
         new FindHotelForm("Znajdź pokój", user).setVisible(true);
         this.setVisible(false);

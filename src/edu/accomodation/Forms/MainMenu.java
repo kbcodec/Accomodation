@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 
+/**
+ * Klasa reprezentująca główne okno aplikacji.
+ */
 public class MainMenu extends JFrame implements IFormLayout {
     private JPanel MainP;
     private JPanel titlePanel;
@@ -59,24 +62,40 @@ public class MainMenu extends JFrame implements IFormLayout {
         findButton.addActionListener(e -> openSearchForm());
     }
 
+    /**
+     * Metoda wyświetlająca mapę hoteli.
+     */
     private void showMap() throws SQLException {
         this.setVisible(false);
         new MapPanel("Mapa hoteli", null).setVisible(true);
     }
 
+    /**
+     * Metoda tworząca nowego użytkownika
+     */
     private void createUser() throws IOException {
         this.dispose();
         new RegisterForm("Rejestracja").setVisible(true);
     }
 
+    /**
+     * Metoda wyświetlająca okno logowania.
+     */
     void openLoginForm() throws IOException {
         this.dispose();
         new LoginForm("Logowanie").setVisible(true);
     }
+
+    /**
+     * Metoda zamykająca aplikację.
+     */
     void exit(){
         this.dispose();
     }
 
+    /**
+     * Metoda wyświetlająca okno wyszukiwania hoteli.
+     */
     void openSearchForm() {
         this.dispose();
         new FindHotelForm("Znajdź pokój", null).setVisible(true);
