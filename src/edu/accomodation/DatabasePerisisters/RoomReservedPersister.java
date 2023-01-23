@@ -41,4 +41,10 @@ public class RoomReservedPersister {
 
         stmt.executeUpdate();
     }
+
+    public void deleteRoomReservedRecord(int reservationId) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE from Rooms_reserved where id_reservation = ?");
+        stmt.setInt(1, reservationId);
+        stmt.executeUpdate();
+    }
 }

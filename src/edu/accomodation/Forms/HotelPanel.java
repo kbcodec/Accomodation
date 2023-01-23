@@ -27,6 +27,7 @@ import java.net.URLConnection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,39 +78,53 @@ public class HotelPanel extends JFrame{
         showListOfRooms(hotelId);
         createCalendar(calendarContainer);
 
-        roomTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if(!e.getValueIsAdjusting()) {
-                    try {
-                        addReservationsToCalendar(calendar, roomTable.getSelectedRow());
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+        roomTable.getSelectionModel().addListSelectionListener(e -> {
+            if(!e.getValueIsAdjusting()) {
+                try {
+                    addReservationsToCalendar(calendar, roomTable.getSelectedRow());
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
                 }
             }
         });
-
 
         if(loggedUser == null) {
             createReservationBtn.setEnabled(false);
             createReservationBtn.setText("Zaloguj się aby dokonać rezerwacji.");
         } else {
             createReservationBtn.addActionListener(e -> {
-                LocalDateTime dateFrom = LocalDateTime.of(
-                    Integer.parseInt((String) yearFromCb.getItemAt(yearFromCb.getSelectedIndex())),
-                    monthFromCb.getSelectedIndex() + 1,
-                    dayFromCb.getSelectedIndex() + 1, 12, 0);
-                LocalDateTime dateTo = LocalDateTime.of(
-                    Integer.parseInt((String) yearToCb.getItemAt(yearToCb.getSelectedIndex())),
-                    monthToCb.getSelectedIndex() + 1,
-                    dayToCb.getSelectedIndex() +1, 10, 0);
-
-                int peopleCounter = peopleCountCb.getSelectedIndex() + 1;
+                LocalDateTime dateFrom;
+                LocalDateTime dateTo;
+                Date dateFromSql;
+                Date dateToSql;
+                int roomNumber = (Integer) roomTable.getValueAt(roomTable.getSelectedRow(), 0);
                 try {
-                    createReservation(dateFrom, dateTo, this.loggedUser);
+                    dateFrom = LocalDateTime.of(
+                            Integer.parseInt((String) yearFromCb.getItemAt(yearFromCb.getSelectedIndex())),
+                            monthFromCb.getSelectedIndex() + 1,
+                            dayFromCb.getSelectedIndex() + 1, 12, 0);
+                    dateFromSql = Date.valueOf(dateFrom.toLocalDate());
+                    dateTo = LocalDateTime.of(
+                            Integer.parseInt((String) yearToCb.getItemAt(yearToCb.getSelectedIndex())),
+                            monthToCb.getSelectedIndex() + 1,
+                            dayToCb.getSelectedIndex() +1, 10, 0);
+                    dateToSql = Date.valueOf(dateTo.toLocalDate());
+                } catch (DateTimeException dte) {
+                    JOptionPane.showMessageDialog(this, "Podana data nie istnieje", "Niepoprawna data", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                try {
+                    if(new ReservationDatabasePersister().isReservationPossible(roomNumber, dateFromSql, dateToSql)){
+                        if(peopleCountCb.getSelectedIndex() + 1 > (Integer) roomTable.getValueAt(roomTable.getSelectedRow(), 2)) {
+                            JOptionPane.showMessageDialog(this, "Niemożliwa rezerwacja dla podanej liczby osób, zmniejsz liczbę gości lub zmień pokój", "Ostrzeżenie", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            createReservation(dateFrom, dateTo, this.loggedUser);
+                        }
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Niemożliwa rezerwacja w podanym terminie, prosimy wybrać inną datę lub pokój", "Ostrzeżenie", JOptionPane.INFORMATION_MESSAGE);
+                    }
                 } catch (SQLException ex) {
-                    throw new RuntimeException(ex);
+                    JOptionPane.showMessageDialog(this, "Nie udało się sprawdzić czy rezerwacja jest możliwa", "Błąd", JOptionPane.ERROR_MESSAGE);
                 }
             });
         }
@@ -140,7 +155,7 @@ public class HotelPanel extends JFrame{
         new RoomReservedPersister().addRoomReserved(lastReservationId, (Integer) roomTable.getValueAt(roomTable.getSelectedRow(), 0), 1.);
 
         utility.updateProgress((Integer) roomTable.getValueAt(roomTable.getSelectedRow(), 0));
-        JOptionPane.showMessageDialog(this, "Udana rezerwacja", "Udało sie utworzyć rezerwację, dziekujemy.", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Udało sie utworzyć rezerwację, dziekujemy.", "Udana rezerwacja", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void prepareImages(Hotel chosenHotel) {
@@ -231,10 +246,12 @@ public class HotelPanel extends JFrame{
             Timestamp timestamp = new Timestamp(data.getTime());
             LocalDateTime ldt = timestamp.toLocalDateTime();
             DateTime dateFrom = new DateTime(ldt);
+            dateFrom = dateFrom.addHours(10);
             data = reservations.get(iter).getCheck_out_date();
             timestamp = new Timestamp(data.getTime());
             ldt = timestamp.toLocalDateTime();
             DateTime dateTo = new DateTime(ldt);
+            dateTo = dateTo.addHours(14);
             Utility utility = new Utility(calendar, dateFrom, dateTo);
             utility.updateProgress((Integer) roomTable.getValueAt(row, 0));
         }

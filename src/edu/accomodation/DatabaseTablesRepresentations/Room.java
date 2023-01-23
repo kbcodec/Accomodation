@@ -11,6 +11,33 @@ public class Room {
     private Hotel hotel;
     private String hotelName;
     private String city;
+    private Date checkInDate;
+    private Date checkOutDate;
+    private int reservationId;
+
+    public int getReservationId() {
+        return reservationId;
+    }
+
+    public void setReservationId(int reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public Date getCheckInDate() {
+        return checkInDate;
+    }
+
+    public void setCheckInDate(Date checkInDate) {
+        this.checkInDate = checkInDate;
+    }
+
+    public Date getCheckOutDate() {
+        return checkOutDate;
+    }
+
+    public void setCheckOutDate(Date checkOutDate) {
+        this.checkOutDate = checkOutDate;
+    }
 
     public int getRoom_number() {
         return room_number;
@@ -64,12 +91,4 @@ public class Room {
     public String getCity() {return city;}
     public void setCity(String city) {this.city = city;}
 
-
-    @Override
-    public String toString() {
-        String typeFormatting = String.format("%30s", type);
-        String roomNumberFormatting = String.format("%10d", room_number);
-        String occupancyFormatting = String.format("%10d", max_occupancy);
-        return roomNumberFormatting + typeFormatting + occupancyFormatting;
-    }
 }

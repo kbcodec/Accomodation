@@ -54,14 +54,14 @@ public class MainMenuLogged extends JFrame implements IFormLayout {
         userReservationsBtn.addActionListener(e -> {
             try {
                 checkYourReservations(loggedUser);
-            } catch (IOException ex) {
+            } catch (IOException | SQLException ex) {
                 throw new RuntimeException(ex);
             }
         });
 
     }
 
-    private void checkYourReservations(User loggedUser) throws IOException {
+    private void checkYourReservations(User loggedUser) throws IOException, SQLException {
         new UserReservationsForm("Twoje rezerwacje", loggedUser).setVisible(true);
         this.dispose();
     }

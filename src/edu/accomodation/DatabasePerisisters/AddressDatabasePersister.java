@@ -31,25 +31,6 @@ public class AddressDatabasePersister {
         return listedAddress;
     }
 
-    public List<Address> listAddresses() throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM address");
-
-        ResultSet rs = stmt.executeQuery();
-
-        List<Address> matchesAddresses = new ArrayList<>();
-        while (rs.next()) {
-            Address listedAddress = new Address();
-            listedAddress.setId_address(rs.getInt("id_address"));
-            listedAddress.setCity(rs.getString("city"));
-            listedAddress.setZip_code(rs.getString("zip_code"));
-            listedAddress.setStreet(rs.getString("street"));
-            listedAddress.setNumber(rs.getString("number"));
-            matchesAddresses.add(listedAddress);
-        }
-
-        return matchesAddresses;
-    }
-
     public List<String> listCitiesFromAddresses() throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("SELECT DISTINCT city FROM address");
         ResultSet rs = stmt.executeQuery();

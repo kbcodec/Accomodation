@@ -103,32 +103,8 @@ public class Hotel {
         return name;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
     public String getType() {
         return type;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public int getId_address() {
-        return id_address;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getWeb() {
-        return web;
-    }
-
-    public String getEmail() {
-        return email;
     }
 
     public double getLatitude() {
@@ -137,14 +113,6 @@ public class Hotel {
 
     public double getLongitude() {
         return longitude;
-    }
-
-    public int getMax_quest() {
-        return max_quest;
-    }
-
-    public int getNum_of_rooms() {
-        return num_of_rooms;
     }
 
     public String getPicture1() {
@@ -159,30 +127,5 @@ public class Hotel {
         return picture3;
     }
 
-    public Address getAddress() {
-        return address;
-    }
 
-    @Override
-    public String toString() {
-        return "Hotel{" +
-                "id_hotel=" + id_hotel +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", type='" + type + '\'' +
-                ", category='" + category + '\'' +
-                ", id_address=" + id_address +
-                ", phone='" + phone + '\'' +
-                ", web='" + web + '\'' +
-                ", email='" + email + '\'' +
-                ", latitude=" + latitude +
-                ", longitude=" + longitude +
-                ", max_quest=" + max_quest +
-                ", num_of_rooms=" + num_of_rooms +
-                ", picture1='" + picture1 + '\'' +
-                ", picture2='" + picture2 + '\'' +
-                ", picture3='" + picture3 + '\'' +
-                ", address='" + address.toString() +'\'' +
-                '}';
-    }
 }

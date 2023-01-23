@@ -1,6 +1,5 @@
 package edu.accomodation.DatabasePerisisters;
 
-import com.mindfusion.scheduling.DayOfWeekFormat;
 import edu.accomodation.DBHandling.DBConnection;
 import edu.accomodation.DatabaseTablesRepresentations.Room;
 

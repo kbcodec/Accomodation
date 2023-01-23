@@ -114,7 +114,7 @@ public class FindHotelForm extends JFrame{
         hotelsTable.setModel(model);
         model.setRowCount(roomList.size());
 
-        searchBtn.setText("ZNAJDŹ HOTEL (znaleziono wyników: " + roomList.size());
+        searchBtn.setText("ZNAJDŹ HOTEL (znaleziono wyników: " + roomList.size() + ")");
 
         assignDataToTable(hotelsTable, roomList);
     }
